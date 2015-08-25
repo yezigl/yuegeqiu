@@ -81,6 +81,7 @@ public class OrderController extends AbstractController {
         res.setAmount(order.getAmount());
         res.setDiscount(order.getDiscount());
         res.setStatus(order.getStatus());
+        res.setQuantity(quantity);
         rep.setData(res);
 
         return rep;

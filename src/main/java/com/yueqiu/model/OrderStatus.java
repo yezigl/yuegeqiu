@@ -16,7 +16,8 @@ public enum OrderStatus {
     CREATE("create", 1),
     PAYED("payed", 2),
     REFUND("refund", 4),
-    CLOSE("close", 8);
+    CLOSE("close", 8),
+    SIGNIN("signin", 16);
     
     public String identifier;
     public int code;

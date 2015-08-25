@@ -25,6 +25,7 @@ public class OrderRes extends Res {
     private String id;
     private float amount;
     private float discount;
+    private int quantity;
     private int status;
     private String createTime;
     @JsonInclude(Include.NON_NULL)
@@ -78,6 +79,18 @@ public class OrderRes extends Res {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPaytype(Integer paytype) {
+        this.paytype = paytype;
     }
 
     public CouponRes getCoupon() {
