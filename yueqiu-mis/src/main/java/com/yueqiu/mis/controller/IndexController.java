@@ -33,6 +33,7 @@ import com.yueqiu.mis.utils.CookieUtils;
  * @since 2015年3月22日
  */
 @Controller
+@RequestMapping(value = "/mis")
 public class IndexController extends BaseController {
 
     @Override
