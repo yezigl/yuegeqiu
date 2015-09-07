@@ -8,8 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yueqiu.mis.model.AclUser;
-
-import orion.core.utils.AES;
+import com.yueqiu.utils.AES;
 
 /**
  * 
