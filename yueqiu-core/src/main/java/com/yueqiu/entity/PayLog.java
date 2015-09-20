@@ -9,6 +9,8 @@ import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Reference;
 
+import com.yueqiu.model.PayType;
+
 /**
  * description here
  *
@@ -16,10 +18,56 @@ import org.mongodb.morphia.annotations.Reference;
  * @since 2015年6月17日
  */
 @Entity("paylog")
-@Indexes({ @Index(fields = @Field("order")) })
+@Indexes({ @Index(fields = @Field("order") ) })
 public class PayLog extends BaseEntity {
 
     @Reference
     private Order order;
-    
+    @Reference
+    private User user;
+    @Reference
+    private Activity activity;
+    private PayType payType;
+    private String detail;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public PayType getPayType() {
+        return payType;
+    }
+
+    public void setPayType(PayType payType) {
+        this.payType = payType;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
 }

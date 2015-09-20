@@ -23,7 +23,7 @@ import com.alipay.util.AlipayNotify;
 @RestController
 public class PaymentController extends AbstractController {
 
-    @RequestMapping(value = "/1/payment/alipay")
+    @RequestMapping(value = "/v1/payment/alipay")
     public String alipay(HttpServletRequest request, @RequestParam("out_trade_no") String orderId,
             @RequestParam("trade_no") String tradeNo, @RequestParam("trade_status") String tradeStatus) {
         // 获取支付宝POST过来反馈信息
@@ -83,13 +83,13 @@ public class PaymentController extends AbstractController {
         }
     }
     
-    @RequestMapping(value = "/1/payment/weixin/prepay")
+    @RequestMapping(value = "/v1/payment/weixin/prepay")
     public String weixinPrepay() {
         
         return null;
     }
     
-    @RequestMapping(value = "/1/payment/weixin")
+    @RequestMapping(value = "/v1/payment/weixin")
     public String weixin() {
         
         return null;

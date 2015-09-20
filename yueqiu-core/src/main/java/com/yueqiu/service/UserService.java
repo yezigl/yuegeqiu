@@ -10,10 +10,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.orion.core.utils.CryptUtils;
 import com.yueqiu.entity.Coupon;
 import com.yueqiu.entity.Message;
 import com.yueqiu.entity.User;
-import com.yueqiu.utils.CryptUtils;
 
 /**
  * description here

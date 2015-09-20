@@ -12,4 +12,6 @@ package com.yueqiu.utils;
 public class Constants {
 
     public static final String DEFAULT_AVATAR = "https://wt-avatars.oss.aliyuncs.com/40/b09e1850-8936-4094-9cb1-c5b4534bcbc7.jpg";
+
+    public static final int ORDER_EXPIRE_TIME = 30 * 60 * 1000;
 }

@@ -3,10 +3,12 @@
  */
 package com.yueqiu.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
+
+import com.orion.core.utils.Utils;
 
 /**
  * description here

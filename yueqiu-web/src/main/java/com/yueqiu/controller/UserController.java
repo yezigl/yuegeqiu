@@ -36,7 +36,7 @@ import com.yueqiu.utils.UserContext;
  * @since 2014年11月6日
  */
 @RestController
-@RequestMapping(value = "/1")
+@RequestMapping(value = { "/1", "/v1" })
 public class UserController extends AbstractController {
 
     @Auth

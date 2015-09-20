@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.orion.core.utils.Utils;
 import com.yueqiu.annotation.Auth;
 import com.yueqiu.entity.Activity;
 import com.yueqiu.entity.Coupon;
@@ -22,7 +23,6 @@ import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
 import com.yueqiu.utils.UserContext;
-import com.yueqiu.utils.Utils;
 
 /**
  * description here
@@ -31,7 +31,7 @@ import com.yueqiu.utils.Utils;
  * @since 2015年6月14日
  */
 @RestController
-@RequestMapping("/1")
+@RequestMapping(value = { "/1", "/v1" })
 public class OrderController extends AbstractController {
 
     @Auth
@@ -87,7 +87,7 @@ public class OrderController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = { "/orders/{id}", "/order/{id}" }, method = RequestMethod.GET)
     public Representation pay(@PathVariable String id) {
         Representation rep = new Representation();
 

@@ -19,6 +19,7 @@ import com.yueqiu.res.StadiumRes;
 import com.yueqiu.service.CacheService;
 import com.yueqiu.service.ActivityService;
 import com.yueqiu.service.OrderService;
+import com.yueqiu.service.PayLogService;
 import com.yueqiu.service.UserService;
 
 /**
@@ -45,6 +46,8 @@ public class AbstractController {
     protected OrderService orderService;
     @Resource
     protected UserService userService;
+    @Resource
+    protected PayLogService payLogService;
     
     protected OrderRes fromOrder(Order order) {
         OrderRes res = new OrderRes();

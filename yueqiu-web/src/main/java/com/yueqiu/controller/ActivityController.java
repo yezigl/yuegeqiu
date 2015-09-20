@@ -38,7 +38,7 @@ import com.yueqiu.utils.UserContext;
  * @since 2015年6月14日
  */
 @RestController
-@RequestMapping("/1")
+@RequestMapping(value = { "/1", "/v1" })
 public class ActivityController extends AbstractController {
 
     @RequestMapping(value = "/activities", method = RequestMethod.GET)
@@ -62,7 +62,7 @@ public class ActivityController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/activity/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = { "/activities/{id}", "/activity/{id}" }, method = RequestMethod.GET)
     public Representation get(@PathVariable String id) {
         Representation rep = new Representation();
 
