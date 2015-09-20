@@ -8,7 +8,7 @@ pid=`ps -ef | grep $jar | grep -v grep | awk '{print $2}'`
 
 cd /data/$app
 
-if [ -n $pid ] ; then
+if [ -n "$pid" ] ; then
     kill $pid
 fi
 

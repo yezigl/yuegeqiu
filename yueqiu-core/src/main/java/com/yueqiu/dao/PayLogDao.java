@@ -8,6 +8,7 @@ import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.PayLog;
@@ -18,6 +19,7 @@ import com.yueqiu.entity.PayLog;
  * @author lidehua
  * @since 2015年6月17日
  */
+@Repository
 public class PayLogDao extends BaseDao<PayLog> {
 
     /**
