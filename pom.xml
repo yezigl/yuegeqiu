@@ -11,6 +11,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>yueqiu</name>
+    
+    <modules>
+        <module>yueqiu-mis</module>
+        <module>yueqiu-web</module>
+        <module>yueqiu-core</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -61,9 +67,12 @@
             </properties>
         </profile>
     </profiles>
-    <modules>
-        <module>yueqiu-mis</module>
-        <module>yueqiu-web</module>
-        <module>yueqiu-core</module>
-    </modules>
+    
+    <repositories>
+        <repository>
+            <id>orion-nexus</id>
+            <name>Orion Nexus</name>
+            <url>http://nexus.perhapslove.info/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 </project>
