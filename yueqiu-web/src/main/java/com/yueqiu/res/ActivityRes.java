@@ -5,12 +5,16 @@ package com.yueqiu.res;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.yueqiu.entity.Activity;
 import com.yueqiu.entity.User;
+import com.yueqiu.model.ActivityStatus;
 import com.yueqiu.utils.Constants;
 
 /**
@@ -55,6 +59,27 @@ public class ActivityRes extends Res {
 
     public ActivityRes() {
         players = new ArrayList<Player>();
+    }
+
+    public ActivityRes(Activity activity, User organizer, List<User> users) {
+        players = new ArrayList<Player>();
+        this.setId(activity.getId().toString());
+        this.setTitle(activity.getTitle());
+        this.setType(activity.getType());
+        this.setDate(DateFormatUtils.format(activity.getDate(), Constants.ACTIVITY_DATE_FORMAT, Locale.CHINA));
+        this.setPrice(activity.getPrice());
+        this.setValue(activity.getPrice());
+        this.setTotal(activity.getTotal());
+        this.setAttend(activity.getAttend());
+        this.setOrganizer(new UserRes(organizer));
+        this.setStatus(activity.getStatus());
+        this.setStatusStr(ActivityStatus.valueOfStatus(activity.getStatus()).text);
+        this.setStadium(new StadiumRes(activity.getStadium()));
+        if (users != null) {
+            for (User user : users) {
+                this.addPlayer(user);
+            }
+        }
     }
 
     public String getId() {

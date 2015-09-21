@@ -5,6 +5,7 @@ package com.yueqiu.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.yueqiu.model.OrderStatus;
 import com.yueqiu.res.OrderRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
+import com.yueqiu.utils.Constants;
 import com.yueqiu.utils.UserContext;
 
 /**
@@ -82,6 +84,7 @@ public class OrderController extends AbstractController {
         res.setDiscount(order.getDiscount());
         res.setStatus(order.getStatus());
         res.setQuantity(quantity);
+        res.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT));
         rep.setData(res);
 
         return rep;
@@ -97,7 +100,7 @@ public class OrderController extends AbstractController {
             return rep;
         }
 
-        OrderRes res = fromOrder(order);
+        OrderRes res = new OrderRes(order);
         rep.setData(res);
 
         return rep;

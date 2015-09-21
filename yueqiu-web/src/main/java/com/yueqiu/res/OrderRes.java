@@ -4,11 +4,15 @@
 package com.yueqiu.res;
 
 import java.util.Date;
+import java.util.Locale;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.yueqiu.entity.Order;
 import com.yueqiu.model.PayType;
+import com.yueqiu.utils.Constants;
 
 /**
  * description here
@@ -45,9 +49,18 @@ public class OrderRes extends Res {
     }
 
     public OrderRes(Order order) {
-        this.id = order.getId().toString();
-        this.amount = order.getAmount();
-        this.status = order.getStatus();
+        this.setId(order.getId().toString());
+        this.setAmount(order.getAmount());
+        this.setDiscount(order.getDiscount());
+        this.setQuantity(order.getQuantity());
+        this.setStatus(order.getStatus());
+        this.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
+        this.setPaytime(order.getPaytime());
+        this.setPayType(order.getPayType());
+        this.setActivity(new ActivityRes(order.getActivity(), Constants.USER_OFFICIAL, null));
+        if (order.getCoupon() != null) {
+            this.setCoupon(new CouponRes(order.getCoupon()));
+        }
     }
 
     public String getId() {

@@ -5,6 +5,7 @@ package com.yueqiu.res;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.yueqiu.entity.User;
 
 /**
  * description here
@@ -30,6 +31,13 @@ public class UserRes extends Res {
 
     public UserRes() {
 
+    }
+
+    public UserRes(User user) {
+        this.id = user.getId().toString();
+        this.mobile = user.getMobile();
+        this.nickname = user.getNickname();
+        this.avatar = user.getAvatar();
     }
 
     public String getId() {

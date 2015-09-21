@@ -95,7 +95,7 @@ public class UserController extends AbstractController {
         List<Order> orders = orderService.listByUser(UserContext.getUser(), os, offset, limit);
         List<OrderRes> list = new ArrayList<OrderRes>();
         for (Order order : orders) {
-            OrderRes res = fromOrder(order);
+            OrderRes res = new OrderRes(order);
             list.add(res);
         }
         rep.setData(list);
