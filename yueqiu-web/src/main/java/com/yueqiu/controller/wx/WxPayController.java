@@ -3,6 +3,8 @@
  */
 package com.yueqiu.controller.wx;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.yueqiu.controller.AbstractController;
 import com.yueqiu.entity.Order;
 import com.yueqiu.entity.PayLog;
+import com.yueqiu.model.OrderStatus;
 import com.yueqiu.model.PayType;
 import com.yueqiu.res.PayRes;
 import com.yueqiu.res.Representation;
@@ -117,12 +120,23 @@ public class WxPayController extends AbstractController {
                 res.return_code = Weixin.RETURN_FAIL;
                 res.return_msg = "找不到订单";
             } else {
-                payLog.setDetail(xml);
-                payLog.setOrder(order);
-                payLog.setActivity(order.getActivity());
-                payLog.setUser(order.getUser());
-                payLog.setPayType(PayType.WEIXIN);
-                payLogService.create(payLog);
+                if (order.isPayed()) {
+                    // 如果已经收到过callback
+                    res.return_code = Weixin.RETURN_SUCCESS;
+                } else {
+                    // 更新订单信息
+                    order.setPayType(PayType.WEIXIN);
+                    order.setPaytime(new Date());
+                    order.setStatus(OrderStatus.PAYED.code);
+                    orderService.update(order);
+                    // 记录更新流水
+                    payLog.setDetail(xml);
+                    payLog.setOrder(order);
+                    payLog.setActivity(order.getActivity());
+                    payLog.setUser(order.getUser());
+                    payLog.setPayType(PayType.WEIXIN);
+                    payLogService.create(payLog);
+                }
             }
         } else {
             res.return_code = Weixin.RETURN_FAIL;

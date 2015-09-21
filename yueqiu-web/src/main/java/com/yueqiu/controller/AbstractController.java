@@ -58,8 +58,7 @@ public class AbstractController {
         res.setStatus(order.getStatus());
         res.setCreateTime(DateFormatUtils.format(order.getCreateTime(), orderPattern, Locale.CHINA));
         res.setPaytime(order.getPaytime());
-        res.setPaytype(order.getPaytype());
-        res.setPaysn(order.getPaysn());
+        res.setPayType(order.getPayType());
         ActivityRes ares = new ActivityRes();
         ares.setId(order.getActivity().getId().toString());
         ares.setTitle(order.getActivity().getTitle());

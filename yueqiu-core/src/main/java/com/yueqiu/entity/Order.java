@@ -11,6 +11,9 @@ import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.annotations.Reference;
 
+import com.yueqiu.model.OrderStatus;
+import com.yueqiu.model.PayType;
+
 /**
  * description here
  *
@@ -18,7 +21,7 @@ import org.mongodb.morphia.annotations.Reference;
  * @since 2015年6月13日
  */
 @Entity("order")
-@Indexes({ @Index(fields = @Field("user")), @Index(fields = { @Field("activity"), @Field("status") }), })
+@Indexes({ @Index(fields = @Field("user") ), @Index(fields = { @Field("activity"), @Field("status") }), })
 public class Order extends BaseEntity {
 
     @Reference
@@ -32,8 +35,7 @@ public class Order extends BaseEntity {
     private Coupon coupon;
     private int status;
     private Date paytime;
-    private int paytype;
-    private String paysn;
+    private PayType payType;
     private String ip;
 
     public Activity getActivity() {
@@ -100,20 +102,12 @@ public class Order extends BaseEntity {
         this.paytime = paytime;
     }
 
-    public int getPaytype() {
-        return paytype;
+    public PayType getPayType() {
+        return payType;
     }
 
-    public void setPaytype(int paytype) {
-        this.paytype = paytype;
-    }
-
-    public String getPaysn() {
-        return paysn;
-    }
-
-    public void setPaysn(String paysn) {
-        this.paysn = paysn;
+    public void setPayType(PayType payType) {
+        this.payType = payType;
     }
 
     public String getIp() {
@@ -122,6 +116,10 @@ public class Order extends BaseEntity {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public boolean isPayed() {
+        return this.status == OrderStatus.PAYED.code;
     }
 
 }

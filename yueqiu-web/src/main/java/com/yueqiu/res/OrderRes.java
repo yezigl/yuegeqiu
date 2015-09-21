@@ -8,6 +8,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.yueqiu.entity.Order;
+import com.yueqiu.model.PayType;
 
 /**
  * description here
@@ -31,7 +32,7 @@ public class OrderRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private Date paytime;
     @JsonInclude(Include.NON_NULL)
-    private Integer paytype;
+    private PayType payType;
     @JsonInclude(Include.NON_NULL)
     private String paysn;
     @JsonInclude(Include.NON_NULL)
@@ -80,17 +81,13 @@ public class OrderRes extends Res {
     public void setDiscount(float discount) {
         this.discount = discount;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public void setPaytype(Integer paytype) {
-        this.paytype = paytype;
     }
 
     public CouponRes getCoupon() {
@@ -117,12 +114,12 @@ public class OrderRes extends Res {
         this.paytime = paytime;
     }
 
-    public Integer getPaytype() {
-        return paytype;
+    public PayType getPayType() {
+        return payType;
     }
 
-    public void setPaytype(int paytype) {
-        this.paytype = paytype;
+    public void setPayType(PayType payType) {
+        this.payType = payType;
     }
 
     public String getPaysn() {
