@@ -12,11 +12,7 @@ if [ -n "$pid" ] ; then
     kill $pid
 fi
 
-if [ $app = $module ] ; then
-    cp $WORKSPACE/target/$jar ./
-else
-    cp $WORKSPACE/$module/target/$jar ./
-fi
+cp /tmp/$app/target/$jar ./
 
 nohup java -jar $jar > /dev/null 2>&1 &
 echo $! > $module.pid
