@@ -1,7 +1,7 @@
 #! /bin/bash
 
 app=yueqiu
-module=yueqiu-web
+module=yueqiu-mis
 version=0.0.1
 jar=$module-$version-SNAPSHOT.jar
 pid=`ps -ef | grep $jar | grep -v grep | awk '{print $2}'`
