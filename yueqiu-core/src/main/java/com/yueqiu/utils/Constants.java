@@ -26,7 +26,7 @@ public class Constants {
     public static final User USER_OFFICIAL = new User();
     
     static {
-        USER_OFFICIAL.setId(new ObjectId("0"));
+        USER_OFFICIAL.setId(new ObjectId());
         USER_OFFICIAL.setMobile("114");
         USER_OFFICIAL.setNickname("系统");
     };
