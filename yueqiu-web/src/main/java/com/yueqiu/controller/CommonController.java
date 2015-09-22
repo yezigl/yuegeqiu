@@ -140,9 +140,11 @@ public class CommonController extends AbstractController {
             return rep;
         }
 
-        LoginRes res = new LoginRes();
         user.setIp(Utils.getClientIP(forwardIp, realIp));
         userService.create(user);
+        logger.info("create user {}", user);
+        
+        LoginRes res = new LoginRes();
         res.setId(user.getId().toString());
         res.setMobile(user.getMobile());
         res.setNickname(user.getNickname());
@@ -190,6 +192,7 @@ public class CommonController extends AbstractController {
 
         Random random = new Random();
         int captcha = random.nextInt(90000) + 100000;
+        logger.info("mobile captcha {}", captcha);
 
         cacheService.set(CacheKey.getMobileCaptchaKey(mobile), captcha, 600);
 

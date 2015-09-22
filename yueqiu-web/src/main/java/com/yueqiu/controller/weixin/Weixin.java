@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 /**
  * description here
@@ -9,7 +9,7 @@ package com.yueqiu.controller.wx;
  * @author yezi
  * @since 2015年9月20日
  */
-public class Weixin {
+class Weixin {
     
     public static String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
@@ -19,7 +19,7 @@ public class Weixin {
     
     public static String API_KEY = "412fde4e9c2e2bb619514ecea142e449";
     
-    public static String NOTIFY_URL = "http://api.yueqiua.com/v1/weixin/pay/callback";
+    public static String NOTIFY_URL = "http://api.yueqiua.com/v1/payment/weixin/callback";
     
     public static String FEE_TYPE = "CNY";
     

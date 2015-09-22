@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import java.util.Date;
 
@@ -25,7 +25,6 @@ import com.yueqiu.entity.Order;
 import com.yueqiu.entity.PayLog;
 import com.yueqiu.model.OrderStatus;
 import com.yueqiu.model.PayType;
-import com.yueqiu.res.PayRes;
 import com.yueqiu.res.Representation;
 import com.yueqiu.res.Status;
 import com.yueqiu.utils.Constants;
@@ -37,7 +36,7 @@ import com.yueqiu.utils.Constants;
  * @since 2015年9月20日
  */
 @Controller
-@RequestMapping("/v1/weixin")
+@RequestMapping("/v1/payment")
 public class WxPayController extends AbstractController {
 
     String ORDER_TIME_FORMAT = "yyyyMMddHHmmss";
@@ -48,7 +47,7 @@ public class WxPayController extends AbstractController {
         xstream.processAnnotations(new Class<?>[] { UnifiedOrder.class, PrePay.class });
     }
 
-    @RequestMapping(value = "/unifiedorder", method = RequestMethod.POST)
+    @RequestMapping(value = "/weixin/unifiedorder", method = RequestMethod.POST)
     @ResponseBody
     public Representation unifiedorder(@RequestParam(value = "orderId") String orderId,
             @RequestHeader(value = "X-Forwarded-For", required = false) String forwardIp,
@@ -79,6 +78,7 @@ public class WxPayController extends AbstractController {
         // 转为xml，并发送
         String xml = xstream.toXML(unifiedOrder);
         String ret = HttpUtils.post(Weixin.UNIFIED_ORDER_URL, xml);
+        logger.info("receive weixin prepay response {}", ret);
         // 返回结果转为pojo
         PrePay prePay = (PrePay) xstream.fromXML(ret);
         if (!prePay.checkSign()) {
@@ -100,8 +100,10 @@ public class WxPayController extends AbstractController {
         return rep;
     }
     
-    @RequestMapping(value = "/pay/callback")
+    @RequestMapping(value = "/weixin/callback")
     public String payCallback(@RequestBody String xml) {
+        
+        logger.info("receive weixin callback response {}", xml);
         
         PayNotifyRes res = new PayNotifyRes();
         res.return_code = Weixin.RETURN_SUCCESS;
@@ -144,28 +146,5 @@ public class WxPayController extends AbstractController {
         }
         
         return xstream.toXML(res);
-    }
-    
-    @RequestMapping(value = "/unifiedorder", method = RequestMethod.GET)
-    @ResponseBody
-    public Representation checkOrder(@RequestParam(value = "orderId") String orderId) {
-
-        Representation rep = new Representation();
-        Order order = orderService.get(orderId);
-        if (order == null) {
-            rep.setError(Status.ERROR_400, "订单不存在");
-            return rep;
-        }
-
-        PayLog payLog = payLogService.getByOrder(order);
-        PayNotify payNotify = (PayNotify) xstream.fromXML(payLog.getDetail());
-
-        PayRes res = new PayRes();
-        res.setResult(payNotify.result_code);
-        res.setMessage(payNotify.err_code_des);
-        
-        rep.setData(res);
-
-        return rep;
     }
 }

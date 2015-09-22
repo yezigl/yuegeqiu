@@ -74,8 +74,10 @@ public class OrderController extends AbstractController {
                 rep.setError(Status.ERROR_400, "生成订单失败");
                 return rep;
             }
+            logger.info("create order {}", order);
         } else {
             order = orders.get(0);
+            logger.info("exist order {}", order);
         }
 
         OrderRes res = new OrderRes();

@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @since 2015年9月20日
  */
 @XStreamAlias("xml")
-public class PrePay {
+class PrePay {
 
     String return_code;
     String return_msg;

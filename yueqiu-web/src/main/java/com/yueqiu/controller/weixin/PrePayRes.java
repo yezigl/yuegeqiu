@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import com.yueqiu.res.Res;
 
@@ -11,7 +11,7 @@ import com.yueqiu.res.Res;
  * @author yezi
  * @since 2015年9月20日
  */
-public class PrePayRes extends Res {
+class PrePayRes extends Res {
 
     /**
      * 

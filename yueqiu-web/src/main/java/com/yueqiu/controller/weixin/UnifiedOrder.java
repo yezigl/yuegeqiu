@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @since 2015年9月20日
  */
 @XStreamAlias("xml")
-public class UnifiedOrder {
+class UnifiedOrder {
     
     @XStreamAlias(value = "appid")
     private String appId; // 是

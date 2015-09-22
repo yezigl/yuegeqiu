@@ -14,9 +14,11 @@
             <artifactId>yueqiu-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.8</version>
+            <groupId>com.alipay</groupId>
+            <artifactId>alipay</artifactId>
+            <version>20150922120051</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/alipay-sdk-java20150922120051.jar</systemPath>
         </dependency>
     </dependencies>
     

@@ -1,13 +1,17 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+import com.yueqiu.controller.weixin.PayNotify;
+import com.yueqiu.controller.weixin.PrePay;
+import com.yueqiu.controller.weixin.UnifiedOrder;
+import com.yueqiu.controller.weixin.Weixin;
 
 /**
  * description here

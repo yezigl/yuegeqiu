@@ -7,4 +7,12 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>yueqiu-core</artifactId>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.8</version>
+        </dependency>
+    </dependencies>
 </project>

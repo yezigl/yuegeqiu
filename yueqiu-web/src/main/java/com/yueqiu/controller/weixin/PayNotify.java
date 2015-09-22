@@ -1,7 +1,7 @@
 /**
  * Copyright 2015 yezi.gl. All Rights Reserved.
  */
-package com.yueqiu.controller.wx;
+package com.yueqiu.controller.weixin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @since 2015年9月20日
  */
 @XStreamAlias("xml")
-public class PayNotify {
+class PayNotify {
 
     String return_code; // 是
     String return_msg; // 否
