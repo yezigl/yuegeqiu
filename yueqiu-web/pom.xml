@@ -13,13 +13,6 @@
             <groupId>com.yueqiu</groupId>
             <artifactId>yueqiu-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alipay</groupId>
-            <artifactId>alipay</artifactId>
-            <version>20150922120051</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/alipay-sdk-java20150922120051.jar</systemPath>
-        </dependency>
     </dependencies>
     
     <build>
