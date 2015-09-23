@@ -3,6 +3,8 @@
  */
 package com.yueqiu.controller.weixin;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.yueqiu.res.Res;
 
 /**
@@ -18,12 +20,19 @@ class PrePayRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
+    @JsonInclude(Include.NON_NULL)
     private String appId;
+    @JsonInclude(Include.NON_NULL)
     private String partnerId;
+    @JsonInclude(Include.NON_NULL)
     private String prepayId;
+    @JsonInclude(Include.NON_NULL)
     private String nonceStr;
-    private long timestamp;
+    @JsonInclude(Include.NON_NULL)
+    private Long timestamp;
+    @JsonInclude(Include.NON_NULL)
     private String packageValue;
+    @JsonInclude(Include.NON_NULL)
     private String sign;
 
     public String getAppId() {

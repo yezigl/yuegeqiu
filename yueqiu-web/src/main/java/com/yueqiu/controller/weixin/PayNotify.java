@@ -91,8 +91,6 @@ class PayNotify {
         }
         String signStr = StringUtils.join(signList, "&") + "&key=" + Weixin.API_KEY;
         String sign = DigestUtils.md5Hex(signStr).toUpperCase();
-        System.out.println(signStr);
-        System.out.println(sign);
         return sign;
     }
 }

@@ -48,7 +48,7 @@ class PrePay {
         Map<String, String> map = new TreeMap<>();
         map.put("return_code", return_code);
         map.put("return_msg", return_msg);
-        map.put("app_id", appid);
+        map.put("appid", appid);
         map.put("mch_id", mch_id);
         map.put("device_info", device_info);
         map.put("nonce_str", nonce_str);

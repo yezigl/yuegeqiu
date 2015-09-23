@@ -87,13 +87,17 @@ public class WxPayController extends AbstractController {
         }
 
         PrePayRes res = new PrePayRes();
-        res.setAppId(Weixin.APP_ID);
-        res.setPartnerId(Weixin.MCH_ID);
-        res.setPrepayId(prePay.prepay_id);
-        res.setNonceStr(prePay.nonce_str);
-        res.setTimestamp(System.currentTimeMillis() / 1000);
-        res.setPackageValue(Weixin.PACKAGE);
-        res.setSign(prePay.sign(res.getTimestamp()));
+        if (prePay.result_code.equals(Weixin.RETURN_SUCCESS)) {
+            res.setAppId(Weixin.APP_ID);
+            res.setPartnerId(Weixin.MCH_ID);
+            res.setPrepayId(prePay.prepay_id);
+            res.setNonceStr(prePay.nonce_str);
+            res.setTimestamp(System.currentTimeMillis() / 1000);
+            res.setPackageValue(Weixin.PACKAGE);
+            res.setSign(prePay.sign(res.getTimestamp()));
+        } else {
+            res.setStatus(Status.ERROR_400, prePay.err_code_des);
+        }
         
         rep.setData(res);
 
