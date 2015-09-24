@@ -123,11 +123,11 @@ public class CommonController extends AbstractController {
             return rep;
         }
 
-        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(user.getMobile()));
-        if (!StringUtils.equals(captchaOrigin, captcha)) {
-            rep.setError(Status.CAPTCHA_ERROR);
-            return rep;
-        }
+//        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(user.getMobile()));
+//        if (!StringUtils.equals(captchaOrigin, captcha)) {
+//            rep.setError(Status.CAPTCHA_ERROR);
+//            return rep;
+//        }
 
         if (StringUtils.isBlank(user.getPassword())) {
             rep.setError(Status.PARAM_ERROR, "password");
