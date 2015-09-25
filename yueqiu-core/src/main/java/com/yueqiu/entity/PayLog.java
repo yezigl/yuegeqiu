@@ -28,6 +28,7 @@ public class PayLog extends BaseEntity {
     @Reference
     private Activity activity;
     private PayType payType;
+    private int status;
     private String detail;
 
     public Order getOrder() {
@@ -60,6 +61,14 @@ public class PayLog extends BaseEntity {
 
     public void setPayType(PayType payType) {
         this.payType = payType;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getDetail() {

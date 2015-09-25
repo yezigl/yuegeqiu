@@ -93,4 +93,12 @@ class PayNotify {
         String sign = DigestUtils.md5Hex(signStr).toUpperCase();
         return sign;
     }
+    
+    public boolean isSuccess() {
+        return Weixin.RETURN_SUCCESS.equals(return_code);
+    }
+    
+    public boolean isPaySuccess() {
+        return Weixin.RETURN_SUCCESS.equals(return_code) && Weixin.RETURN_SUCCESS.equals(result_code);
+    }
 }

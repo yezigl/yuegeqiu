@@ -122,4 +122,7 @@ public class Order extends BaseEntity {
         return this.status == OrderStatus.PAYED.code;
     }
 
+    public boolean isNew() {
+        return this.status == OrderStatus.CREATE.code;
+    }
 }

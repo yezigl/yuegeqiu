@@ -16,25 +16,32 @@ public class PayRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
-    private String result;
-    private String message;
+    private int status;
+    private String type;
+    private String payTime;
 
-    public String getResult() {
-        return result;
+    public int getStatus() {
+        return status;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public String getType() {
+        return type;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setType(String type) {
+        this.type = type;
     }
-    
-    
+
+    public String getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
+    }
 
 }

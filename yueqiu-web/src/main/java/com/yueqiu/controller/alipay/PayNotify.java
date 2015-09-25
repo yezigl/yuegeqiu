@@ -3,12 +3,17 @@
  */
 package com.yueqiu.controller.alipay;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * description here
  *
  * @author yezi
  * @since 2015年9月22日
  */
+@XStreamAlias("xml")
 class PayNotify {
 
     String notify_time; // 通知时间 Date 通知的发送时间。格式为yyyy-MM-dd HH:mm:ss。 不可空
@@ -35,7 +40,7 @@ class PayNotify {
     float total_fee; // 交易金额 Number 该笔订单的总金额。请求时对应的参数，原样通知回来。 可空
     int quantity; // 购买数量 Number 购买数量，固定取值为1（请求时使用的是total_fee）。 可空
     float price; // 商品单价 Number price等于total_fee（请求时使用的是total_fee）。 可空
-    float body; // 商品描述 String(512) 该笔订单的备注、描述、明细等。对应请求时的body参数，原样通知回来。 可空
+    String body; // 商品描述 String(512) 该笔订单的备注、描述、明细等。对应请求时的body参数，原样通知回来。 可空
     String gmt_create; // 交易创建时间 Date 该笔交易创建的时间。格式为yyyy-MM-dd HH:mm:ss。 可空
     String gmt_payment; // 交易付款时间 Date 该笔交易的买家付款时间。格式为yyyy-MM-dd HH:mm:ss。 可空
     String is_total_fee_adjust; // 是否调整总价 String(1) 该交易是否调整过价格。 可空 N
@@ -44,4 +49,36 @@ class PayNotify {
                     // 0.00
     String refund_status; // 退款状态 String 取值范围请参见SDK参数说明->退款状态。 可空
     String gmt_refund; // 退款时间 Date 卖家退款的时间，退款通知时会发送。格式为yyyy-MM-dd HH:mm:ss。 可空
+    
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("notify_time", notify_time);
+        builder.append("notify_type", notify_type);
+        builder.append("notify_id", notify_id);
+        builder.append("sign_type", sign_type);
+        builder.append("sign", sign);
+        builder.append("out_trade_no", out_trade_no);
+        builder.append("subject", subject);
+        builder.append("payment_type", payment_type);
+        builder.append("trade_no", trade_no);
+        builder.append("trade_status", trade_status);
+        builder.append("seller_id", seller_id);
+        builder.append("seller_email", seller_email);
+        builder.append("buyer_id", buyer_id);
+        builder.append("buyer_email", buyer_email);
+        builder.append("total_fee", total_fee);
+        builder.append("quantity", quantity);
+        builder.append("price", price);
+        builder.append("body", body);
+        builder.append("gmt_create", gmt_create);
+        builder.append("gmt_payment", gmt_payment);
+        builder.append("is_total_fee_adjust", is_total_fee_adjust);
+        builder.append("use_coupon", use_coupon);
+        builder.append("discount", discount);
+        builder.append("refund_status", refund_status);
+        builder.append("gmt_refund", gmt_refund);
+        return builder.toString();
+    }
+    
 }

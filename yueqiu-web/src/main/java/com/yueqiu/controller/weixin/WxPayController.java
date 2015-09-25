@@ -44,7 +44,7 @@ public class WxPayController extends AbstractController {
     static XStream xstream = new XStream(new XppDriver(new NoNameCoder()));
 
     static {
-        xstream.processAnnotations(new Class<?>[] { UnifiedOrder.class, PrePay.class });
+        xstream.processAnnotations(new Class<?>[] { UnifiedOrder.class, PrePay.class, PayNotify.class });
     }
 
     @RequestMapping(value = "/weixin/unifiedorder", method = RequestMethod.POST)
@@ -119,7 +119,7 @@ public class WxPayController extends AbstractController {
             res.return_msg = "签名错误";
         }
         
-        if (Weixin.RETURN_SUCCESS.equals(payNotify.return_code)) {
+        if (payNotify.isSuccess()) {
             PayLog payLog = new PayLog();
             Order order = orderService.get(payNotify.out_trade_no);
             if (order == null) {
@@ -128,13 +128,17 @@ public class WxPayController extends AbstractController {
             } else {
                 if (order.isPayed()) {
                     // 如果已经收到过callback
-                    res.return_code = Weixin.RETURN_SUCCESS;
                 } else {
-                    // 更新订单信息
-                    order.setPayType(PayType.WEIXIN);
-                    order.setPaytime(new Date());
-                    order.setStatus(OrderStatus.PAYED.code);
-                    orderService.update(order);
+                    if (payNotify.isPaySuccess()) {
+                        // 更新订单信息
+                        order.setPayType(PayType.WEIXIN);
+                        order.setPaytime(new Date());
+                        order.setStatus(OrderStatus.PAYED.code);
+                        orderService.update(order);
+                        payLog.setStatus(1);
+                    } else {
+                        payLog.setStatus(0);
+                    }
                     // 记录更新流水
                     payLog.setDetail(xml);
                     payLog.setOrder(order);

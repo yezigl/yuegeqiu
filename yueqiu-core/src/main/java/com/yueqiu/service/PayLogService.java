@@ -28,6 +28,7 @@ public class PayLogService extends BaseService {
     public PayLog getByOrder(Order order) {
         Query<PayLog> query = payLogDao.createQuery();
         query.field("order").equal(order);
+        query.field("status").equal(1);
         return query.get();
     }
 }
