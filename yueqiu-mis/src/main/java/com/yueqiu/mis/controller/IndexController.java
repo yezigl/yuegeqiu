@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,23 +34,23 @@ import com.yueqiu.mis.utils.CookieUtils;
  * @since 2015年3月22日
  */
 @Controller
-@RequestMapping(value = "/mis")
 public class IndexController extends BaseController {
 
     @Override
-    protected String vmtpl() {
-        return "";
+    protected String project() {
+        return null;
     }
-
-    @Override
-    protected String category() {
-        return "index";
-    }
-
+    
     @RequestMapping("/")
     public String index() {
 
         return "index";
+    }
+
+    @RequestMapping("/{project}")
+    public String project(@PathVariable String project, Model model) {
+        model.addAttribute("project", project);
+        return project + "/" + project;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -85,7 +86,7 @@ public class IndexController extends BaseController {
             return mv.getModel();
         }
 
-        String cdnServer = "http://static.yezi.gl/" + bucket + "/";
+        String cdnServer = "http://static.yueqiua.com/" + bucket + "/";
         String uploadPath = "/opt/data/upload/" + bucket;
         File path = new File(uploadPath);
         if (!path.exists()) {
@@ -115,4 +116,5 @@ public class IndexController extends BaseController {
 
         return mv.getModel();
     }
+
 }

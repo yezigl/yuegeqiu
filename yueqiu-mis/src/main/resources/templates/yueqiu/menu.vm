@@ -1,0 +1,13 @@
+<ul class="nav nav-sidebar">
+    <li #if($category == "index") class="active" #end><a href="/">首页</span></a></li>
+    <li #if($category == "stadium") class="active" #end><a href="/yueqiu/stadiums">场地管理</a></li>
+    <li #if($category == "activity") class="active" #end><a href="/yueqiu/activities">活动管理</a></li>
+    <li #if($category == "user") class="active" #end><a href="/yueqiu/users">用户管理</a></li>
+    <li #if($category == "order") class="active" #end><a href="/yueqiu/orders">订单管理</a></li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li><a href="">TODO</a></li>
+</ul>
+<ul class="nav nav-sidebar">
+    <li><a href="">TBD</a></li>
+</ul>

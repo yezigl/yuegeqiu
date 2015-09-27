@@ -6,22 +6,22 @@
         <artifactId>orion-web</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.yueqiu</groupId>
+    <groupId>com.yidongle.yueqiu</groupId>
     <artifactId>yueqiu</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>yueqiu</name>
-    
+    <name>luna</name>
+
     <modules>
+        <module>yueqiu-core</module>
         <module>yueqiu-mis</module>
         <module>yueqiu-web</module>
-        <module>yueqiu-core</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.yueqiu</groupId>
+                <groupId>com.yidongle.yueqiu</groupId>
                 <artifactId>yueqiu-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -32,11 +32,6 @@
         <dependency>
             <groupId>orion</groupId>
             <artifactId>orion-mongodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -69,7 +64,7 @@
             </properties>
         </profile>
     </profiles>
-    
+
     <build>
         <resources>
             <resource>
@@ -88,7 +83,7 @@
             </resource>
         </resources>
     </build>
-    
+
     <repositories>
         <repository>
             <id>orion-nexus</id>

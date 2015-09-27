@@ -8,9 +8,9 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:property-placeholder location="classpath:*.properties" />
+    <!-- <context:property-placeholder location="classpath:*.properties" /> -->
 
-    <bean id="datastore" class="com.yueqiu.spring.DatastoreFactoryBean" init-method="getObject" />
+    <!-- <bean id="datastore" class="com.yueqiu.spring.DatastoreFactoryBean" init-method="getObject" /> -->
 
     <!-- 支持上传文件 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
