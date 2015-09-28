@@ -11,6 +11,7 @@ package com.yueqiu.core.model;
  */
 public enum ActivityStatus {
 
+    ALL(0, "未知"),
     UNSTART(1, "未开始"),
     INPROGRESS(2, "报名中"),
     FILLED(3, "已报满"),

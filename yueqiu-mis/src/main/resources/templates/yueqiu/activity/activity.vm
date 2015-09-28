@@ -3,7 +3,7 @@
 <head>
 #parse("head.vm")
 <link rel="stylesheet" href="/css/dashboard.css">
-<title>球场详情 - $stadium.name</title>
+<title>活动详情 - $activity.name</title>
 </head>
 <body>
     #parse("/navbar.vm")
@@ -12,55 +12,62 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">#parse("/$project/menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h2 class="page-header">球场详情</h2>
+                <h2 class="page-header">活动详情</h2>
                 <div class="row">
                     <div class="form-horizontal">
                         <input type="hidden" id="id" name="id" value="$id">
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">名称</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="name" placeholder="名称" value="$!stadium.name" required="required">
+                            <label for="title" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="title" placeholder="标题" value="$!activity.title" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">地图</label>
-                            <div class="col-sm-5">
-                                <span id="latlng"></span>
-                                <input type="hidden" id="latitude" value="$!stadium.latitude">
-                                <input type="hidden" id="longitude" value="$!stadium.longitude">
-                                <button type="button" id="map" onclick="showMap()" class="btn btn-sm btn-default">选择地点</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">地址</label>
+                            <label for="description" class="col-sm-2 control-label">球场</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="address" placeholder="地址" value="$!stadium.address" required="required">
+                                <input type="text" class="form-control" id="stadiumId" placeholder="球场" value="" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="col-sm-2 control-label">联系电话</label>
+                            <label for="description" class="col-sm-2 control-label">日期</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="phone" placeholder="联系电话" value="$!stadium.phone" required="required">
+                                <input type="text" class="form-control" id="date" placeholder="日期" value="" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="value" class="col-sm-2 control-label">球场容量</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="size" placeholder="球场容量" value="$!stadium.size" required="required">
+                            <label for="description" class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="price" placeholder="价格" value="$!activity.price" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="gallery" class="col-sm-2 control-label">球场图片</label>
-                            #foreach($imgurl in $stadium.gallery)
-                            <div class="col-sm-2">
-                                <button type="button" class="close delete" title="删除">&times;</button>
-                                <img src="$imgurl" class="img-responsive">
-                                <input type="hidden" name="gallery[]" value="$imgurl">
+                            <label for="description" class="col-sm-2 control-label">组织者</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="address" placeholder="地址" value="" required="required">
                             </div>
-                            #end
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">人数</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="total" placeholder="人数" value="$!activity.total" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="value" class="col-sm-2 control-label">已报名</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="attend" placeholder="已报名" value="$!activity.attend" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery" class="col-sm-2 control-label">状态</label>
                             <div class="col-sm-2">
-                                <input type="file" class="form-control hide" id="input_gallery" name="files">
-                                <button type="button" id="btn_gallery" class="btn btn-sm btn-default">上传图片</button>
+                                <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

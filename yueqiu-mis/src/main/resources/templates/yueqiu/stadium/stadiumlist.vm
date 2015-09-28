@@ -15,7 +15,7 @@
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">球场列表</h2>
                 <div class="row">
-                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="/$project/stadium/0">添加球场</a>
+                    <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="/$project/stadiums/0">添加球场</a>
                 </div>
                 <div class="row">
                     #foreach($stadium in $stadiums)

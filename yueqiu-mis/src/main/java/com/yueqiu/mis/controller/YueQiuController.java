@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Stadium;
+import com.yueqiu.core.model.ActivityStatus;
 
 /**
  * description here
@@ -72,29 +74,37 @@ public class YueQiuController extends BaseController {
                 old.setName(stadium.getName());
                 old.setPhone(stadium.getPhone());
                 old.setSize(stadium.getSize());
-                // stadiumService.update(old);
+                stadiumService.update(old);
             } else {
-                // stadiumService.create(stadium);
+                stadiumService.create(stadium);
             }
         } else {
-            // stadiumService.create(stadium);
+            stadiumService.create(stadium);
         }
-        logger.info("{}", stadium);
+        logger.info("update or create {}", stadium);
+
         mv.addObject("code", 200);
         mv.addObject("msg", "ok");
         return mv.getModel();
     }
 
     @RequestMapping(value = "/activities", method = RequestMethod.GET)
-    public String activities(Model model) {
+    public String activities(Model model, @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit) {
+        List<Activity> list = activityService.listAll(ActivityStatus.ALL, offset, limit);
+        model.addAttribute("activities", list);
+        model.addAttribute("offset", offset);
+        model.addAttribute("limit", limit);
         return vm("activity/activitylist");
     }
 
     @RequestMapping(value = "/activities/{id}", method = RequestMethod.GET)
     public String activityGet(@PathVariable String id, Model model) {
-        if (id.equals("0")) {
-
+        if (!id.equals("0")) {
+            Activity activity = activityService.get(id);
+            model.addAttribute("activity", activity);
         }
+        model.addAttribute("id", id);
         return vm("activity/activity");
     }
 

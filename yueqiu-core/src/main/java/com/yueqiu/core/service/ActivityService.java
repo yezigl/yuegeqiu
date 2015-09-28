@@ -6,11 +6,13 @@ package com.yueqiu.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.model.ActivityStatus;
 import com.yueqiu.core.model.ActivityType;
 import com.yueqiu.core.model.DateType;
 import com.yueqiu.core.model.OrderBy;
@@ -48,5 +50,19 @@ public class ActivityService extends BaseService {
             users.add(order.getUser());
         }
         return users;
+    }
+
+    /**
+     * @param all
+     * @param offset
+     * @param limit
+     */
+    public List<Activity> listAll(ActivityStatus status, int offset, int limit) {
+        Query<Activity> query = activityDao.createQuery();
+        if (status != ActivityStatus.ALL) {
+            query.field("status").equal(status.status);
+        }
+        query.offset(offset).limit(limit);
+        return query.asList();
     }
 }

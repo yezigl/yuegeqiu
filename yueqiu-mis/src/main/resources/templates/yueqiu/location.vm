@@ -42,21 +42,38 @@
 
     //自定义右键菜单内容
     var menuContent = document.createElement("div");
-    menuContent.innerHTML = "<ul style='margin: 2px; padding: 2px; list-style-type: none; position: relative; background-color: rgb(255, 255, 255); border: 1px solid rgb(175, 175, 175); box-shadow: rgb(153, 153, 153) 2px 2px 8px; white-space: nowrap; cursor: pointer;'>" +
-            "<li style='text-indent: 0.5em; color:blue; font-size:13px;font-family:verdana;height: 20px; line-height: 20px; word-break: break-all; white-space: nowrap;'onclick='zoomMenu(0)'>缩小</li></ul>"
+    menuContent.innerHTML = "<ul style='margin: 2px; padding: 6px; list-style-type: none; position: relative; background-color: rgb(255, 255, 255); border: 1px solid rgb(175, 175, 175); box-shadow: rgb(153, 153, 153) 2px 2px 8px; white-space: nowrap; cursor: pointer;'>" +
+            "<li style='color:blue;font-size:14px;height: 20px; line-height: 20px; word-break: break-all; white-space: nowrap;'onclick='selectPos()'>选择当前地址</li></ul>"
     //创建右键菜单
     contextMenu = new AMap.ContextMenu({isCustom: true, content: menuContent});//通过content自定义右键菜单内容
 
     //地图绑定鼠标右击事件——弹出右键菜单
     var lnglat;
-    map.on( 'rightclick', function(e) {
+    map.on('rightclick', function(e) {
         contextMenu.open(map, e.lnglat);
         console.log(e)
         contextMenuPositon = e.lnglat; //右键菜单位置
         lnglat = e.lnglat;
     });
     contextMenu.close();
-    //右键菜单缩放地图
+    // 选择当前选择地址
+    function selectPos() {
+        AMap.service(["AMap.Geocoder"], function() {
+            MGeocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            //逆地理编码
+            MGeocoder.getAddress([lnglat.lng, lnglat.lat], function(status, data) {
+                if (status === 'complete' && data.info === 'OK') {
+                    var address = data.regeocode.formattedAddress;
+                    window.opener.selectPos(address, lnglat.lng, lnglat.lat);
+                    window.close();
+                }
+            });
+        });
+    }
+    //显示搜索
     var MSearch;
     AMap.service(["AMap.PlaceSearch"], function() {       
         MSearch = new AMap.PlaceSearch({ //构造地点查询类
