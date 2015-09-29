@@ -18,11 +18,12 @@
         </encoder>
     </appender>
         
-	<logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
 	
     <root>
         <level value="INFO"/>
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE" />
     </root>
 
 </configuration>
