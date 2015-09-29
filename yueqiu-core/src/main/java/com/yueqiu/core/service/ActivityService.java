@@ -62,7 +62,19 @@ public class ActivityService extends BaseService {
         if (status != ActivityStatus.ALL) {
             query.field("status").equal(status.status);
         }
+        query.order("-date");
         query.offset(offset).limit(limit);
         return query.asList();
+    }
+
+    /**
+     * @param activity
+     */
+    public void upsert(Activity activity) {
+        if (activity.getId() != null) {
+            update(activity);
+        } else {
+            create(activity);
+        }
     }
 }

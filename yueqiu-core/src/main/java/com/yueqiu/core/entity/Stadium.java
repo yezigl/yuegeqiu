@@ -25,6 +25,7 @@ public class Stadium extends BaseEntity {
     private float latitude;
     private int size;
     private String[] gallery;
+    private int status;
 
     public String getName() {
         return name;
@@ -80,6 +81,14 @@ public class Stadium extends BaseEntity {
 
     public void setGallery(String[] gallery) {
         this.gallery = gallery;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override

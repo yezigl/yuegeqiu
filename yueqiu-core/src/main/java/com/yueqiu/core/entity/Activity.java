@@ -5,6 +5,8 @@ package com.yueqiu.core.entity;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
 
@@ -22,6 +24,7 @@ public class Activity extends BaseEntity {
     private Stadium stadium;
     private int type;
     private Date date;
+    private float duration; // 小时为单位
     private float price;
     @Reference
     private User organizer;
@@ -59,6 +62,14 @@ public class Activity extends BaseEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 
     public float getPrice() {
@@ -101,4 +112,21 @@ public class Activity extends BaseEntity {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("title", title);
+        builder.append("stadium", stadium.getId().toString());
+        builder.append("type", type);
+        builder.append("date", date);
+        builder.append("duration", duration);
+        builder.append("price", price);
+        builder.append("organizer", organizer.getId().toString());
+        builder.append("total", total);
+        builder.append("attend", attend);
+        builder.append("status", status);
+        return builder.toString();
+    }
+
+    
 }

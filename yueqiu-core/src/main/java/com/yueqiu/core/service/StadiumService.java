@@ -21,6 +21,7 @@ public class StadiumService extends BaseService {
 
     public List<Stadium> listAll() {
         Query<Stadium> query = stadiumDao.createQuery();
+        query.order("name");
         return query.asList();
     }
     

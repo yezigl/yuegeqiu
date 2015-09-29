@@ -23,6 +23,8 @@ public class Constants {
     
     public static final String ORDER_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     
+    public static final String MIS_ACT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
+    
     public static final User USER_OFFICIAL = new User();
     
     static {

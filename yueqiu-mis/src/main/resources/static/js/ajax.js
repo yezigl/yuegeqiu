@@ -1,22 +1,35 @@
 /**
  * 
  */
-function ajaxPost(url, ids, success, error) {
+var ajaxError = false;
+function params(ids) {
     var data = {};
     jQuery.each(ids, function(i, id) {
         if (id.indexOf("[]") >= 0) {
             var name = id.replace('[]', '');
-            console.log(name);
             jQuery('input[name="' + id + '"]').each(function(i, e) {
-                console.log(e);
                 data[name + '[' + i + ']'] = jQuery(e).val();
             });
-            
         } else {
-            data[id] = jQuery('#' + id).val();
+            var _id = jQuery('#' + id);
+            var required = _id.prop('required');
+            if (required && !_id.val()) {
+                alert(_id.attr('placeholder') + '不能为空');
+                ajaxError = true;
+            }
+            data[_id.attr('name') || id] = _id.val();
         }
     });
-    console.log(data);
+    return data;
+}
+
+function ajaxPost(url, ids, success, error) {
+    var data = params(ids);
+    if (ajaxError) {
+        ajaxError = false;
+        return;
+    }
+
     jQuery.ajax({
         'url': url,
         'type': 'POST',
@@ -27,13 +40,29 @@ function ajaxPost(url, ids, success, error) {
 }
 
 function ajaxGet(url, ids, success, error) {
-    var data = {};
-    jQuery.each(ids, function(i, id) {
-        data[id] = jQuery('#' + id).val();
-    });
+    var data = params(ids);
+    if (ajaxError) {
+        ajaxError = false;
+        return;
+    }
     jQuery.ajax({
         'url': url,
         'type': 'GET',
+        'data': data,
+        'success': success,
+        'error': error,
+    });
+}
+
+function ajaxDelete(url, ids, success, error) {
+    var data = params(ids);
+    if (ajaxError) {
+        ajaxError = false;
+        return;
+    }
+    jQuery.ajax({
+        'url': url,
+        'type': 'DELETE',
         'data': data,
         'success': success,
         'error': error,

@@ -3,10 +3,12 @@
  */
 package com.yueqiu.mis.controller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Stadium;
 import com.yueqiu.core.model.ActivityStatus;
+import com.yueqiu.core.utils.Constants;
 
 /**
  * description here
@@ -28,7 +31,6 @@ import com.yueqiu.core.model.ActivityStatus;
  * @since 2015年9月26日
  */
 @Controller
-@RequestMapping(value = "/yueqiu")
 public class YueQiuController extends BaseController {
 
     public String project() {
@@ -104,12 +106,50 @@ public class YueQiuController extends BaseController {
             Activity activity = activityService.get(id);
             model.addAttribute("activity", activity);
         }
+        model.addAttribute("stadiums", stadiumService.listAll());
         model.addAttribute("id", id);
         return vm("activity/activity");
     }
 
     @RequestMapping(value = "/activities/{id}", method = RequestMethod.POST)
-    public String activityPost(@PathVariable String id, Model model) {
+    @ResponseBody
+    public Map<String, Object> activityPost(@PathVariable String id, @RequestParam String title, @RequestParam String stadiumId,
+            @RequestParam String dateStr, @RequestParam float duration, @RequestParam float price,
+            @RequestParam int total, @RequestParam int status, Model model) {
+        ModelAndView mv = new ModelAndView();
+        Activity activity;
+        if (id.equals("0")) {
+            activity = new Activity();
+        } else {
+            activity = activityService.get(id);
+        }
+        activity.setTitle(title);
+        Stadium stadium = stadiumService.get(stadiumId);
+        if (stadium == null) {
+            mv.addObject("code", 400);
+            mv.addObject("msg", "球场获取失败");
+            return mv.getModel();
+        }
+        activity.setStadium(stadium);
+        try {
+            activity.setDate(DateUtils.parseDate(dateStr, Constants.MIS_ACT_DATE_FORMAT));
+        } catch (ParseException e) {
+            logger.error("{}", e.getMessage(), e);
+        }
+        activity.setDuration(duration);
+        activity.setPrice(price);
+        activity.setTotal(total);
+        activity.setStatus(status);
+        activityService.upsert(activity);
+        logger.info("update or create {}", activity);
+        
+        mv.addObject("code", 200);
+        mv.addObject("msg", "ok");
+        return mv.getModel();
+    }
+
+    @RequestMapping(value = "/activities/{id}", method = RequestMethod.DELETE)
+    public String activityDelete(@PathVariable String id, Model model) {
         return vm("activity/activity");
     }
 

@@ -10,7 +10,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">#parse("/$project/menu.vm")</div>
+            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">球场详情</h2>
                 <div class="row">
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">地图</label>
+                            <label for="" class="col-sm-2 control-label">地图</label>
                             <div class="col-sm-5">
                                 <span id="latlng"></span>
                                 <input type="hidden" id="latitude" value="$!stadium.latitude">
@@ -32,25 +32,25 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">地址</label>
+                            <label for="address" class="col-sm-2 control-label">地址</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="address" placeholder="地址" value="$!stadium.address" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="col-sm-2 control-label">联系电话</label>
+                            <label for="phone" class="col-sm-2 control-label">联系电话</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="phone" placeholder="联系电话" value="$!stadium.phone" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="value" class="col-sm-2 control-label">球场容量</label>
+                            <label for="size" class="col-sm-2 control-label">球场容量</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="size" placeholder="球场容量" value="$!stadium.size" required="required">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="gallery" class="col-sm-2 control-label">球场图片</label>
+                            <label for="btn_gallery" class="col-sm-2 control-label">球场图片</label>
                             #foreach($imgurl in $stadium.gallery)
                             <div class="col-sm-2">
                                 <button type="button" class="close delete" title="删除">&times;</button>
@@ -93,7 +93,7 @@
         });
         
         jQuery('#save').click(function() {
-            ajaxPost('/yueqiu/stadiums/$id', ['id', 'name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
+            ajaxPost('/stadiums/$id', ['id', 'name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
             function(data, status, jqXHR) {
                 alert('修改成功');
             }, function(jqXHR, status, e) {
@@ -136,7 +136,7 @@
     
     function showMap() {
         var q = jQuery('#name').val();
-        window.open('/yueqiu/location?q=' + q + '&cid=010', "", 'width=800,height=500,top=100,left=200');
+        window.open('/location?q=' + q + '&cid=010', "", 'width=800,height=500,top=100,left=200');
     }
     function selectPos(address, lng, lat) {
         jQuery('#address').val(address);

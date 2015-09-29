@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+<title>活动详情 - $activity.name</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">活动详情</h2>
+                <div class="row">
+                    <div class="form-horizontal">
+                        <input type="hidden" id="id" name="id" value="$id">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="title" placeholder="标题" value="$!activity.title" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stadiumId" class="col-sm-2 control-label">球场</label>
+                            <div class="col-sm-3">
+                                <select id="stadiumId" name="stadiumId" class="form-control">
+                                    <option value="0">选择球场</option>
+                                    #foreach($stadium in $stadiums)
+                                    <option value="$stadium.id" #if($stadium.id == $!activity.stadium.id) selected="selected"#end>$stadium.name</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="datetimepicker" class="col-sm-2 control-label">日期</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="datetimepicker" name="dateStr" placeholder="日期" value="$!dateTool.format('yyyy-MM-dd HH:mm', $!activity.date)" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration" class="col-sm-2 control-label">时长</label>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="duration" placeholder="时长" value="" required="required">
+                                    <div class="input-group-addon">小时</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="price" placeholder="价格" value="$!activity.price" required="required">
+                                    <div class="input-group-addon">元</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">组织者</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="" placeholder="TODO" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="total" class="col-sm-2 control-label">人数</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="total" placeholder="人数" value="$!activity.total" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="attend" class="col-sm-2 control-label">已报名</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="attend" placeholder="0" value="$!activity.attend" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <select id="status" name="status" class="form-control">
+                                    <option value="1">未开始</option>
+                                    <option value="2">报名中</option>
+                                    <option value="3">已报满</option>
+                                    <option value="4">已结束</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="save" class="btn btn-primary">保存</button>&nbsp;&nbsp;
+                                <button type="button" id="delete" class="btn btn-danger">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript">
+    jQuery(function () {
+        'use strict';
+        
+        jQuery('#save').click(function() {
+            ajaxPost('/activities/$id', ['id', 'title', 'stadiumId', 'datetimepicker', 'duration', 'price', 'total', 'status'], 
+            function(data, status, jqXHR) {
+                alert('修改成功');
+            }, function(jqXHR, status, e) {
+                alert('修改失败');
+            });
+        });
+        
+        jQuery('#datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language: 'zh-CN'
+        });
+        
+        jQuery('#delete').click(function() {
+            if (confirm("确定删除吗？")) {
+                ajaxDelete('/activities/$id', [],
+                function(data, status, jqXHR) {
+                    document.location.href = '/activities';
+                }, function(jqXHR, status, e) {
+                    alert('删除失败');
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>
