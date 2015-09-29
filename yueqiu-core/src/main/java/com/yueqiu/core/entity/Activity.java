@@ -121,7 +121,7 @@ public class Activity extends BaseEntity {
         builder.append("date", date);
         builder.append("duration", duration);
         builder.append("price", price);
-        builder.append("organizer", organizer.getId().toString());
+        //builder.append("organizer", organizer.getId().toString());
         builder.append("total", total);
         builder.append("attend", attend);
         builder.append("status", status);

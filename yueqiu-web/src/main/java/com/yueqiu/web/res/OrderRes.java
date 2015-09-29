@@ -55,7 +55,7 @@ public class OrderRes extends Res {
         this.setQuantity(order.getQuantity());
         this.setStatus(order.getStatus());
         this.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
-        this.setPaytime(order.getPaytime());
+        this.setPaytime(order.getPayTime());
         this.setPayType(order.getPayType());
         this.setActivity(new ActivityRes(order.getActivity(), Constants.USER_OFFICIAL, null));
         if (order.getCoupon() != null) {

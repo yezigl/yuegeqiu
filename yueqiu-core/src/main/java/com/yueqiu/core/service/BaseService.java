@@ -40,5 +40,4 @@ public abstract class BaseService {
     @Autowired
     protected PayLogDao payLogDao;
     
-    
 }

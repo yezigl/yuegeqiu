@@ -132,7 +132,7 @@ public class WxPayController extends AbstractController {
                     if (payNotify.isPaySuccess()) {
                         // 更新订单信息
                         order.setPayType(PayType.WEIXIN);
-                        order.setPaytime(new Date());
+                        order.setPayTime(new Date());
                         order.setStatus(OrderStatus.PAYED.code);
                         orderService.update(order);
                         payLog.setStatus(1);

@@ -34,11 +34,6 @@ import com.yueqiu.mis.utils.CookieUtils;
  */
 @Controller
 public class IndexController extends BaseController {
-
-    @Override
-    protected String project() {
-        return null;
-    }
     
     @RequestMapping("/")
     public String index() {

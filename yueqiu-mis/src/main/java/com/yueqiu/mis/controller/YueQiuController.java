@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yueqiu.core.entity.Activity;
+import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.Stadium;
+import com.yueqiu.core.entity.User;
 import com.yueqiu.core.model.ActivityStatus;
+import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 
 /**
@@ -32,10 +35,6 @@ import com.yueqiu.core.utils.Constants;
  */
 @Controller
 public class YueQiuController extends BaseController {
-
-    public String project() {
-        return "yueqiu";
-    }
 
     @RequestMapping(value = "/location", method = RequestMethod.GET)
     public String location(@RequestParam(required = false) String q, @RequestParam(required = false) String cid,
@@ -113,9 +112,9 @@ public class YueQiuController extends BaseController {
 
     @RequestMapping(value = "/activities/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> activityPost(@PathVariable String id, @RequestParam String title, @RequestParam String stadiumId,
-            @RequestParam String dateStr, @RequestParam float duration, @RequestParam float price,
-            @RequestParam int total, @RequestParam int status, Model model) {
+    public Map<String, Object> activityPost(@PathVariable String id, @RequestParam String title,
+            @RequestParam String stadiumId, @RequestParam String dateStr, @RequestParam float duration,
+            @RequestParam float price, @RequestParam int total, @RequestParam int status, Model model) {
         ModelAndView mv = new ModelAndView();
         Activity activity;
         if (id.equals("0")) {
@@ -142,7 +141,7 @@ public class YueQiuController extends BaseController {
         activity.setStatus(status);
         activityService.upsert(activity);
         logger.info("update or create {}", activity);
-        
+
         mv.addObject("code", 200);
         mv.addObject("msg", "ok");
         return mv.getModel();
@@ -154,20 +153,38 @@ public class YueQiuController extends BaseController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(Model model) {
-        return vm("user/users");
-    }
-
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public String userGet(@PathVariable String id, Model model) {
-        if (id.equals("0")) {
-
+    public String users(@RequestParam(required = false) String mobile, @RequestParam(defaultValue = "0") int offset,
+            Model model) {
+        if (StringUtils.isNotBlank(mobile)) {
+            User user = userService.getByMobile(mobile);
+            model.addAttribute("user", user);
+            List<Order> orders = orderService.listByUser(user, OrderStatus.ALL, offset, 10);
+            model.addAttribute("orders", orders);
+            model.addAttribute("offset", offset);
         }
-        return vm("user/user");
+        return vm("user/usersearch");
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public String userPost(@PathVariable String id, Model model) {
         return vm("user/user");
+    }
+    
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public String orders(@RequestParam(required = false) String id, Model model) {
+        if (StringUtils.isNotBlank(id)) {
+            Order order = orderService.get(id);
+            model.addAttribute("order", order);
+        }
+        return vm("order/ordersearch");
+    }
+    
+    @RequestMapping(value = "/orders/activity/{id}", method = RequestMethod.GET)
+    public String orderActivity(@PathVariable String id, Model model) {
+        Activity activity = activityService.get(id);
+        List<Order> orders = orderService.listByActivity(activity, OrderStatus.ALL);
+        model.addAttribute("activity", activity);
+        model.addAttribute("orders", orders);
+        return "order/orderlist";
     }
 }

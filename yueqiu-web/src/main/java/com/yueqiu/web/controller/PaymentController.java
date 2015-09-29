@@ -50,7 +50,7 @@ public class PaymentController extends AbstractController {
         if (payLog != null) {
             res.setStatus(payLog.getStatus());;
             res.setType(payLog.getPayType().name());
-            res.setPayTime(DateFormatUtils.format(order.getPaytime(), Constants.ORDER_DATE_FORMAT));
+            res.setPayTime(DateFormatUtils.format(order.getPayTime(), Constants.ORDER_DATE_FORMAT));
         } else {
             res.setStatus(0);
         }

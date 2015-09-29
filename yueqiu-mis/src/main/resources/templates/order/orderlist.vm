@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("/head.vm")
+<title>订单列表</title>
+</head>
+<body>
+    #parse("/navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                #parse("/menu.vm")
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">订单列表</h2>
+                #if ($activity)
+                <h3>球赛：<a href="/activities/$activity.id">$activity.title</a></h3>
+                <br>
+                #end
+                #if ($orders)
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">活动</th>
+                            <th class="text-center">价格</th>
+                            <th class="text-center">下单时间</th>
+                            <th class="text-center">下单IP</th>
+                            <th class="text-center">支付状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    #foreach($order in $orders)
+                        <tr>
+                            <td>$order.activity.title</td>
+                            <td class="text-center">$order.amount</td>
+                            <td class="text-center">$dateTool.format('yyyy-MM-dd HH:mm:ss', $order.createTime)</td>
+                            <td class="text-center">$order.ip</td>
+                            <td class="text-center">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!order.payTime)</td>
+                            <td class="text-center">
+                                <a href="/orders/$order.id">详情</a>
+                            </td>
+                        </tr>
+                    #end
+                    </tbody>
+                </table>
+                #end
+            </div>
+        </div>
+    </div>
+
+    #parse("/footer.vm")
+</body>
+</html>

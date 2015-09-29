@@ -6,6 +6,7 @@ package com.yueqiu.core.service;
 import java.util.Date;
 import java.util.List;
 
+import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.core.entity.Activity;
@@ -43,11 +44,38 @@ public class OrderService extends BaseService {
     }
 
     public List<Order> listByUser(User user, OrderStatus status, int offset, int limit) {
-        return orderDao.listByUser(user, status, offset, limit);
+        Query<Order> query = orderDao.createQuery();
+        query.field("user").equal(user);
+        if (status != OrderStatus.ALL) {
+            query.field("status").equal(status.code);
+        }
+        query.order("-ctime");
+        query.offset(offset).limit(limit);
+        return query.asList();
     }
 
     public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus status) {
-        return orderDao.getByUserAndActivity(user, activity, status);
+        Query<Order> query = orderDao.createQuery();
+        query.field("activity").equal(activity);
+        query.field("user").equal(user);
+        if (status != OrderStatus.ALL) {
+            query.field("status").equal(status.code);
+        }
+        query.order("-ctime");
+        return query.asList();
+    }
+
+    /**
+     * @return
+     */
+    public List<Order> listByActivity(Activity activity, OrderStatus status) {
+        Query<Order> query = orderDao.createQuery();
+        query.field("activity").equal(activity);
+        if (status != OrderStatus.ALL) {
+            query.field("status").equal(status.code);
+        }
+        query.order("-ctime");
+        return query.asList();
     }
 
 }

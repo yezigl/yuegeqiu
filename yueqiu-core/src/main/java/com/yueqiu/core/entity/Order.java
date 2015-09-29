@@ -34,7 +34,7 @@ public class Order extends BaseEntity {
     @Reference
     private Coupon coupon;
     private int status;
-    private Date paytime;
+    private Date payTime;
     private PayType payType;
     private String ip;
 
@@ -94,12 +94,12 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    public Date getPaytime() {
-        return paytime;
+    public Date getPayTime() {
+        return payTime;
     }
 
-    public void setPaytime(Date paytime) {
-        this.paytime = paytime;
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
     }
 
     public PayType getPayType() {

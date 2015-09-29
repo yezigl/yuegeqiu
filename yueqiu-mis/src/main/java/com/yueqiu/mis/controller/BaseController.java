@@ -6,7 +6,6 @@ package com.yueqiu.mis.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.yueqiu.core.service.ActivityService;
 import com.yueqiu.core.service.OrderService;
@@ -48,9 +47,6 @@ public abstract class BaseController {
     }
 
     protected String vm(String view) {
-        return project() + "/" + view;
+        return view;
     }
-
-    @ModelAttribute("project")
-    protected abstract String project();
 }

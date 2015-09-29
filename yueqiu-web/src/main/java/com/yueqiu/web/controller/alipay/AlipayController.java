@@ -81,7 +81,7 @@ public class AlipayController extends AbstractController {
                 // 2、开通了高级即时到账，从该笔交易成功时间算起，过了签约时的可退款时限（如：三个月以内可退款、一年以内可退款等）后。
                 // 更新订单信息
                 order.setPayType(PayType.ALIPAY);
-                order.setPaytime(new Date());
+                order.setPayTime(new Date());
                 order.setStatus(OrderStatus.PAYED.code);
                 orderService.update(order);
                 payLog.setStatus(1);
@@ -93,7 +93,7 @@ public class AlipayController extends AbstractController {
                 // 该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
                 // 更新订单信息
                 order.setPayType(PayType.ALIPAY);
-                order.setPaytime(new Date());
+                order.setPayTime(new Date());
                 order.setStatus(OrderStatus.PAYED.code);
                 orderService.update(order);
                 payLog.setStatus(1);

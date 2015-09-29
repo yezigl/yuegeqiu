@@ -3,17 +3,11 @@
  */
 package com.yueqiu.core.dao;
 
-import java.util.List;
-
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Order;
-import com.yueqiu.core.entity.User;
-import com.yueqiu.core.model.OrderStatus;
 
 /**
  * description here
@@ -32,32 +26,4 @@ public class OrderDao extends BaseDao<Order> {
         super(datastore);
     }
 
-    public List<Order> listByUser(User user, OrderStatus status, int offset, int limit) {
-        Query<Order> query = createQuery();
-        query.field("user").equal(user);
-        if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
-        }
-        query.offset(offset).limit(limit);
-        return query.asList();
-    }
-
-    public List<Order> listByActivity(Activity activity, OrderStatus status) {
-        Query<Order> query = createQuery();
-        query.field("activity").equal(activity);
-        if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
-        }
-        return query.asList();
-    }
-
-    public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus status) {
-        Query<Order> query = createQuery();
-        query.field("activity").equal(activity);
-        query.field("user").equal(user);
-        if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
-        }
-        return query.asList();
-    }
 }

@@ -13,11 +13,11 @@ class Weixin {
     
     public static String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
-    public static String APP_ID = "wxf2f565574a968187";
+    public static String APP_ID = "wx6e7743c505a4881b";
     
-    public static String MCH_ID = "1233848001";
+    public static String MCH_ID = "1272650001";
     
-    public static String API_KEY = "412fde4e9c2e2bb619514ecea142e449";
+    public static String API_KEY = "33fb1cfab5c90860cf9f854ddbcb61f4";
     
     public static String NOTIFY_URL = "http://api.yueqiua.com/v1/payment/weixin/callback";
     

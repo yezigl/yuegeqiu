@@ -2,7 +2,7 @@
 <html>
 <head>
 #parse("/head.vm")
-<title>活动管理</title>
+<title>球赛管理</title>
 </head>
 <body>
     #parse("/navbar.vm")
@@ -13,47 +13,43 @@
                 #parse("/menu.vm")
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h2 class="page-header">活动列表</h2>
+                <h2 class="page-header">球赛列表</h2>
                 <div class="row">
                     <a class="btn btn-primary" style="margin: 0 0 15px 15px;" href="/activities/0">添加活动</a>
                 </div>
-                <div class="row">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="text-center">标题</th>
-                                <th class="text-center">球场</th>
-                                <th class="text-center">时间</th>
-                                <th class="text-center">状态</th>
-                                <th class="text-center">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        #foreach($activity in $activities)
-                            <tr>
-                                <td>$activity.title</td>
-                                <td>$activity.stadium.name</td>
-                                <td class="text-center">$dateTool.format('yyyy-MM-dd HH:mm', $activity.date)</td>
-                                <td class="text-center">$activity.status</td>
-                                <td class="text-center">
-                                    <a href="/activities/$activity.id">详情</a>&nbsp;&nbsp;
-                                    <a href="/orders/activity/$activity.id">订单</a>
-                                </td>
-                            </tr>
-                        #end
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <nav>
-                        <ul class="pager">
-                            #set($p = $offset - 10)
-                            #set($n = $offset + 10)
-                            <li #if ($offset <= 0)class="disabled" #end><a href="/activities?offset=$p">前一页</a></li>
-                            <li><a href="/activities?offset=$n">后一页</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">标题</th>
+                            <th class="text-center">球场</th>
+                            <th class="text-center">时间</th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    #foreach($activity in $activities)
+                        <tr>
+                            <td>$activity.title</td>
+                            <td>$activity.stadium.name</td>
+                            <td class="text-center">$dateTool.format('yyyy-MM-dd HH:mm', $activity.date)</td>
+                            <td class="text-center">$activity.status</td>
+                            <td class="text-center">
+                                <a href="/activities/$activity.id">详情</a>&nbsp;&nbsp;
+                                <a href="/orders/activity/$activity.id">订单</a>
+                            </td>
+                        </tr>
+                    #end
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        #set($p = $offset - 10)
+                        #set($n = $offset + 10)
+                        <li #if ($offset <= 0)class="disabled" #end><a href="/activities?offset=$p">前一页</a></li>
+                        <li><a href="/activities?offset=$n">后一页</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

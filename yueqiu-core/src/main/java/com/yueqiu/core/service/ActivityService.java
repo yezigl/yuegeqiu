@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mongodb.morphia.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.core.entity.Activity;
@@ -27,6 +28,9 @@ import com.yueqiu.core.model.OrderStatus;
 @Service
 public class ActivityService extends BaseService {
 
+    @Autowired
+    OrderService orderService;
+    
     public Activity get(String id) {
         return activityDao.get(id);
     }
@@ -44,7 +48,7 @@ public class ActivityService extends BaseService {
     }
 
     public List<User> getAttend(Activity activity) {
-        List<Order> orders = orderDao.listByActivity(activity, OrderStatus.PAYED);
+        List<Order> orders = orderService.listByActivity(activity, OrderStatus.PAYED);
         List<User> users = new ArrayList<User>();
         for (Order order : orders) {
             users.add(order.getUser());
