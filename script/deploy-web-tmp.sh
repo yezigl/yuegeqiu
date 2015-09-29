@@ -2,7 +2,7 @@
 
 app=yueqiu
 module=yueqiu-web
-version=0.0.1
+version=1.0.0
 jar=$module-$version-SNAPSHOT.jar
 pid=`ps -ef | grep $jar | grep -v grep | awk '{print $2}'`
 

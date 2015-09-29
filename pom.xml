@@ -10,7 +10,7 @@
     <artifactId>yueqiu</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>luna</name>
+    <name>yueqiu</name>
 
     <modules>
         <module>yueqiu-core</module>
