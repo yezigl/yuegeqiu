@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-#parse("/head.vm")
+#parse("head.vm")
 <title>订单查询</title>
 </head>
 <body>
-    #parse("/navbar.vm")
+    #parse("navbar.vm")
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
-                #parse("/menu.vm")
+                #parse("menu.vm")
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">订单查询</h2>
@@ -42,6 +42,6 @@
         </div>
     </div>
 
-    #parse("/footer.vm")
+    #parse("footer.vm")
 </body>
 </html>

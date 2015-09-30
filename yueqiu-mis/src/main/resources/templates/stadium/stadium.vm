@@ -6,11 +6,11 @@
 <title>球场详情 - $stadium.name</title>
 </head>
 <body>
-    #parse("/navbar.vm")
+    #parse("navbar.vm")
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-3 col-md-2 sidebar">#parse("menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">球场详情</h2>
                 <div class="row">
@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label for="" class="col-sm-2 control-label">地图</label>
                             <div class="col-sm-5">
-                                <span id="latlng"></span>
+                                <span id="latlng">#if($stadium.latitude)&nbsp;$!stadium.longitude, $!stadium.latitude&nbsp;&nbsp;#end</span>
                                 <input type="hidden" id="latitude" value="$!stadium.latitude">
                                 <input type="hidden" id="longitude" value="$!stadium.longitude">
                                 <button type="button" id="map" onclick="showMap()" class="btn btn-sm btn-default">选择地点</button>
@@ -74,8 +74,8 @@
         </div>
     </div>
 
-    #parse("/footer.vm")
-    #parse("/upload.vm")
+    #parse("footer.vm")
+    #parse("upload.vm")
     <script type="text/javascript">
     jQuery(function () {
         'use strict';

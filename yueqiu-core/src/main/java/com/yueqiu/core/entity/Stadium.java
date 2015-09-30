@@ -94,6 +94,7 @@ public class Stadium extends BaseEntity {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("id", stringifyId());
         builder.append("name", name);
         builder.append("address", address);
         builder.append("phone", phone);

@@ -7,11 +7,11 @@
 <title>球赛详情 - $activity.name</title>
 </head>
 <body>
-    #parse("/navbar.vm")
+    #parse("navbar.vm")
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">#parse("/menu.vm")</div>
+            <div class="col-sm-3 col-md-2 sidebar">#parse("menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h2 class="page-header">球赛详情</h2>
                 <div class="row">
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    #parse("/footer.vm")
+    #parse("footer.vm")
     <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript">
