@@ -39,20 +39,20 @@
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-sm-2 control-label">联系电话</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 col-xs-8">
                                 <input type="text" class="form-control" id="phone" placeholder="联系电话" value="$!stadium.phone" required="required">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="size" class="col-sm-2 control-label">球场容量</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 col-xs-4">
                                 <input type="text" class="form-control" id="size" placeholder="球场容量" value="$!stadium.size" required="required">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="btn_gallery" class="col-sm-2 control-label">球场图片</label>
                             #foreach($imgurl in $stadium.gallery)
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 col-xs-10">
                                 <button type="button" class="close delete" title="删除">&times;</button>
                                 <img src="$imgurl" class="img-responsive">
                                 <input type="hidden" name="gallery[]" value="$imgurl">
@@ -110,7 +110,7 @@
             jQuery(e.target).parent().remove();
         });
     });
-    var imgTemplate = '<div class="col-sm-2"><button class="close delete">&times;</button><img src="" class="img-responsive"><input type="hidden" name="gallery[]" value=""></div>';
+    var imgTemplate = '<div class="col-sm-2 col-xs-10"><button class="close delete">&times;</button><img src="" class="img-responsive"><input type="hidden" name="gallery[]" value=""></div>';
     
     function showMap() {
         var q = jQuery('#name').val();

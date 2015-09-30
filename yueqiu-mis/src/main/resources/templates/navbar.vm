@@ -8,12 +8,12 @@
             <a class="navbar-brand" href="#">约个球管理后台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Profile</a></li>
+            <ul class="nav navbar-nav navbar-right dd">
+                <li><a href="/stadiums">球场管理</a></li>
+                <li><a href="/activities">球赛管理</a></li>
+                <li><a href="/users">用户管理</a></li>
+                <li><a href="/orders">订单管理</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
         </div>
     </div>
 </nav>

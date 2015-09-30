@@ -5,3 +5,13 @@
     top: -2px;
     right: 18px;
 }
+
+.dd {
+    display: block;
+}
+
+@media ( min-width : 768px) {
+    .dd {
+        display: none;
+    }
+}
