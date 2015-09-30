@@ -44,7 +44,7 @@
                             <label for="duration" class="col-sm-2 control-label">时长</label>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="duration" placeholder="时长" value="" required="required">
+                                    <input type="text" class="form-control" id="duration" placeholder="时长" value="$!activity.duration" required="required">
                                     <div class="input-group-addon">小时</div>
                                 </div>
                             </div>

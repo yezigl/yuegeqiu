@@ -77,10 +77,12 @@ public class WxPayController extends AbstractController {
 
         // 转为xml，并发送
         String xml = xstream.toXML(unifiedOrder);
+        logger.info("send weixin prepay xml {}", xml);
         String ret = HttpUtils.post(Weixin.UNIFIED_ORDER_URL, xml);
         logger.info("receive weixin prepay response {}", ret);
         // 返回结果转为pojo
-        PrePay prePay = (PrePay) xstream.fromXML(ret);
+        PrePay prePay = new PrePay();
+        xstream.fromXML(ret, prePay);
         if (!prePay.checkSign()) {
             rep.setError(Status.ERROR_400, "签名错误");
             return rep;
