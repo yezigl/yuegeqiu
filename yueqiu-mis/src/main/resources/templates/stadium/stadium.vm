@@ -17,7 +17,7 @@
                     <div class="form-horizontal">
                         <input type="hidden" id="id" name="id" value="$id">
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">名称</label>
+                            <label for="name" class="col-sm-2 control-label">名称</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="name" placeholder="名称" value="$!stadium.name" required="required">
                             </div>
@@ -88,6 +88,9 @@
                 jimg.data('imgUrl', src);
                 jimg.find('img').attr('src', src);
                 jimg.find('input[name="gallery[]"]').val(src);
+                jimg.find('button.delete').click(function(e) {
+                    jQuery(e.target).parent().remove();
+                });
                 jQuery('#btn_gallery').parent().before(jimg);
             }
         });
@@ -101,6 +104,9 @@
             });
         });
         
+        jQuery('button.delete').click(function(e) {
+            jQuery(e.target).parent().remove();
+        });
     });
     var imgTemplate = '<div class="col-sm-2"><button class="close delete">&times;</button><img src="" class="img-responsive"><input type="hidden" name="gallery[]" value=""></div>';
     var jprogress = jQuery('#progress');
