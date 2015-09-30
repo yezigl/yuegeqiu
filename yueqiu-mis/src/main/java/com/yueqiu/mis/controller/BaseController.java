@@ -6,6 +6,8 @@ package com.yueqiu.mis.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.yueqiu.core.service.ActivityService;
 import com.yueqiu.core.service.OrderService;
@@ -24,7 +26,7 @@ public abstract class BaseController {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     protected String SEP_SEMICOLON = ";";
-    
+
     @Autowired
     protected ActivityService activityService;
     @Autowired
@@ -35,6 +37,11 @@ public abstract class BaseController {
     protected StadiumService stadiumService;
     @Autowired
     protected UserService userService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("id");
+    }
 
     protected String redirect(String url) {
         // try {

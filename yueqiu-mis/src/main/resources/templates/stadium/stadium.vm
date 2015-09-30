@@ -95,9 +95,9 @@
         jQuery('#save').click(function() {
             ajaxPost('/stadiums/$id', ['name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
             function(data, status, jqXHR) {
-                alert('修改成功');
+                alert('添加/修改成功');
             }, function(jqXHR, status, e) {
-                alert('修改失败');
+                alert('添加/修改失败');
             });
         });
         
