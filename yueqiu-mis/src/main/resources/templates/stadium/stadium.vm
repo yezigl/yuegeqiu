@@ -59,7 +59,7 @@
                             </div>
                             #end
                             <div class="col-sm-2">
-                                <input type="file" class="form-control hide" id="input_gallery" name="files">
+                                <input type="file" accept="image/png,image/jpeg" class="form-control hide" id="input_gallery" name="files">
                                 <button type="button" id="btn_gallery" class="btn btn-sm btn-default">上传图片</button>
                             </div>
                         </div>
@@ -80,9 +80,9 @@
     jQuery(function () {
         'use strict';
         
-        upload('gallery', function(e, data) {
+        upload('gallery', 'stadium', function(e, data) {
             var ret = data.result;
-            if (ret.code == 200) {
+            if (ret && ret.code == 200) {
                 var jimg = jQuery(imgTemplate);
                 var src = ret.urls[0];
                 jimg.data('imgUrl', src);
@@ -92,6 +92,8 @@
                     jQuery(e.target).parent().remove();
                 });
                 jQuery('#btn_gallery').parent().before(jimg);
+            } else {
+                alert(ret ? ret.msg : '上传失败');
             }
         });
         
@@ -109,36 +111,6 @@
         });
     });
     var imgTemplate = '<div class="col-sm-2"><button class="close delete">&times;</button><img src="" class="img-responsive"><input type="hidden" name="gallery[]" value=""></div>';
-    var jprogress = jQuery('#progress');
-    var jprogressbar = jprogress.find('.progress-bar');
-    
-    function upload(id, callback) {
-        jQuery('#btn_' + id).click(function() {
-            jQuery('#input_' + id).click();
-        });
-        jQuery('#input_' + id).fileupload({
-            url: '/upload',
-            formData: {
-                'bucket': 'stadium'
-            },
-            dataType: 'json',
-            done: function(e, data) {
-                jprogress.addClass('hide');
-                callback(e, data);
-            },
-            send: function(e,data) {
-                jprogress.removeClass('hide').css({
-                    'top': ($(window).height() - 30) / 2,
-                    'left': ($(window).width() - 200) / 2
-                });
-                jprogressbar.css('width', 0);
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                jprogressbar.css('width', progress + '%');
-            }
-        });
-    }
     
     function showMap() {
         var q = jQuery('#name').val();
