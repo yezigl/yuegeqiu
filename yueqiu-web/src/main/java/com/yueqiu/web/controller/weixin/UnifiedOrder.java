@@ -223,6 +223,7 @@ class UnifiedOrder {
             }
         }
         String signStr = StringUtils.join(signList, "&") + "&key=" + Weixin.API_KEY;
+        System.out.println(signStr);
         this.sign = DigestUtils.md5Hex(signStr).toUpperCase();
         return this;
     }
