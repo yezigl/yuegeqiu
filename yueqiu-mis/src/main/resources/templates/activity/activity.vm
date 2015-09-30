@@ -4,7 +4,7 @@
 #parse("head.vm")
 <link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
-<title>球赛详情 - $activity.name</title>
+<title>球赛详情</title>
 </head>
 <body>
     #parse("navbar.vm")
@@ -107,7 +107,7 @@
         'use strict';
         
         jQuery('#save').click(function() {
-            ajaxPost('/activities/$id', ['id', 'title', 'stadiumId', 'datetimepicker', 'duration', 'price', 'total', 'status'], 
+            ajaxPost('/activities/$id', ['title', 'stadiumId', 'datetimepicker', 'duration', 'price', 'total', 'status'], 
             function(data, status, jqXHR) {
                 alert('修改成功');
             }, function(jqXHR, status, e) {

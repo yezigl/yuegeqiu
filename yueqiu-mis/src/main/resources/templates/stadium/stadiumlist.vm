@@ -2,7 +2,7 @@
 <html>
 <head>
 #parse("head.vm")
-<title>球场管理</title>
+<title>球场列表</title>
 </head>
 <body>
     #parse("navbar.vm")

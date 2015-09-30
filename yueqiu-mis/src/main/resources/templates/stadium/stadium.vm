@@ -3,7 +3,7 @@
 <head>
 #parse("head.vm")
 <link rel="stylesheet" href="/css/dashboard.css">
-<title>球场详情 - $stadium.name</title>
+<title>球场详情</title>
 </head>
 <body>
     #parse("navbar.vm")
@@ -93,7 +93,7 @@
         });
         
         jQuery('#save').click(function() {
-            ajaxPost('/stadiums/$id', ['id', 'name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
+            ajaxPost('/stadiums/$id', ['name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
             function(data, status, jqXHR) {
                 alert('修改成功');
             }, function(jqXHR, status, e) {
