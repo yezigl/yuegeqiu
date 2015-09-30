@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,9 @@ import com.yueqiu.mis.utils.CookieUtils;
  */
 @Controller
 public class IndexController extends BaseController {
+    
+    @Value("${upload.path}")
+    String uploadPath;
     
     @RequestMapping("/")
     public String index() {
@@ -75,8 +79,8 @@ public class IndexController extends BaseController {
         }
 
         String cdnServer = "http://static.yueqiua.com/" + bucket + "/";
-        String uploadPath = "/opt/data/upload/" + bucket;
-        File path = new File(uploadPath);
+        String tempPath = uploadPath + bucket;
+        File path = new File(tempPath);
         if (!path.exists()) {
             path.mkdirs();
         }
