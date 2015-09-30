@@ -17,7 +17,7 @@ class Weixin {
     
     public static String MCH_ID = "1272650001";
     
-    public static String API_KEY = "33fb1cfab5c90860cf9f854ddbcb61f4";
+    public static String API_KEY = "cb6a7204c6eebd8e16fd08e714dbc7d8";
     
     public static String NOTIFY_URL = "http://api.yueqiua.com/v1/payment/weixin/callback";
     

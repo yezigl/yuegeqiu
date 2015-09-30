@@ -10,7 +10,6 @@ import java.util.TreeMap;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
 
 import com.orion.core.utils.CryptUtils;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -224,7 +223,6 @@ class UnifiedOrder {
             }
         }
         String signStr = StringUtils.join(signList, "&") + "&key=" + Weixin.API_KEY;
-        LoggerFactory.getLogger(getClass()).info(signStr);
         this.sign = DigestUtils.md5Hex(signStr).toUpperCase();
         return this;
     }
