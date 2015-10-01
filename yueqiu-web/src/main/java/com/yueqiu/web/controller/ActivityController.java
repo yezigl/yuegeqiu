@@ -72,7 +72,8 @@ public class ActivityController extends AbstractController {
         List<User> attends = activityService.getAttend(activity);
         ActivityRes res = new ActivityRes(activity, Constants.USER_OFFICIAL, attends);
         if (UserContext.isAuth()) {
-            List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.ALL);
+            List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
+                    OrderStatus.PAYED);
             if (CollectionUtils.isNotEmpty(orders)) {
                 Order order = orders.get(0);
                 res.setOrder(new OrderRes(order));

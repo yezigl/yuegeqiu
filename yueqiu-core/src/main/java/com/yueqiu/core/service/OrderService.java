@@ -3,6 +3,7 @@
  */
 package com.yueqiu.core.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,13 +57,15 @@ public class OrderService extends BaseService {
         return query.asList();
     }
 
-    public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus status) {
+    public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus... statuses) {
         Query<Order> query = orderDao.createQuery();
         query.field("activity").equal(activity);
         query.field("user").equal(user);
-        if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
+        List<Integer> sList = new ArrayList<>();
+        for (OrderStatus status : statuses) {
+            sList.add(status.code);
         }
+        query.field("status").in(sList);
         query.order("-ctime");
         return query.asList();
     }
