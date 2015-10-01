@@ -3,8 +3,6 @@
  */
 package com.yueqiu.core.dao;
 
-import java.util.List;
-
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,9 +24,5 @@ public class ConfigDao extends BaseDao<Config> {
     @Autowired
     public ConfigDao(Datastore datastore) {
         super(datastore);
-    }
-
-    public List<Config> getAll() {
-        return getAllEntities();
     }
 }

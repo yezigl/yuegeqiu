@@ -4,6 +4,7 @@
 package com.yueqiu.core.dao;
 
 import org.mongodb.morphia.Datastore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yueqiu.core.entity.CheckTask;
@@ -20,6 +21,7 @@ public class CheckTaskDao extends BaseDao<CheckTask> {
     /**
      * @param datastore
      */
+    @Autowired
     public CheckTaskDao(Datastore datastore) {
         super(datastore);
     }
