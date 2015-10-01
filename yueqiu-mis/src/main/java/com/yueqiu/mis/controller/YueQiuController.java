@@ -24,6 +24,7 @@ import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.Stadium;
 import com.yueqiu.core.entity.User;
 import com.yueqiu.core.model.ActivityStatus;
+import com.yueqiu.core.model.CheckType;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 
@@ -141,6 +142,7 @@ public class YueQiuController extends BaseController {
         activity.setStatus(status);
         activityService.upsert(activity);
         logger.info("update or create {}", activity);
+        checkTaskService.submit(CheckType.ACTIVITY_STATUS, activity.getId());
 
         mv.addObject("code", 200);
         mv.addObject("msg", "ok");

@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.PayLog;
 import com.yueqiu.core.utils.Constants;
+import com.yueqiu.web.res.OrderRes;
 import com.yueqiu.web.res.PayRes;
 import com.yueqiu.web.res.Representation;
 import com.yueqiu.web.res.Status;
@@ -54,6 +55,7 @@ public class PaymentController extends AbstractController {
         } else {
             res.setStatus(0);
         }
+        res.setOrder(new OrderRes(order));
         
         rep.setData(res);
 

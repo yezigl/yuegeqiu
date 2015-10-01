@@ -10,6 +10,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import com.yueqiu.core.service.ActivityService;
+import com.yueqiu.core.service.CheckTaskService;
 import com.yueqiu.core.service.OrderService;
 import com.yueqiu.core.service.PayLogService;
 import com.yueqiu.core.service.StadiumService;
@@ -37,6 +38,8 @@ public abstract class BaseController {
     protected StadiumService stadiumService;
     @Autowired
     protected UserService userService;
+    @Autowired
+    protected CheckTaskService checkTaskService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

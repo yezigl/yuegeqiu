@@ -19,6 +19,7 @@ public class PayRes extends Res {
     private int status;
     private String type;
     private String payTime;
+    private OrderRes order;
 
     public int getStatus() {
         return status;
@@ -42,6 +43,14 @@ public class PayRes extends Res {
 
     public void setPayTime(String payTime) {
         this.payTime = payTime;
+    }
+
+    public OrderRes getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderRes order) {
+        this.order = order;
     }
 
 }

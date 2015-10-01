@@ -81,4 +81,15 @@ public class ActivityService extends BaseService {
             create(activity);
         }
     }
+
+    /**
+     * @param activity
+     */
+    public int incrAttend(Activity activity) {
+        if (activity.getAttend() < activity.getTotal()) {
+            activity.setAttend(activity.getAttend() + 1);
+            activityDao.update(activity);
+        }
+        return activity.getAttend();
+    }
 }

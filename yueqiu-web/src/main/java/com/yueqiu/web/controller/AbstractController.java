@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yueqiu.core.service.ActivityService;
 import com.yueqiu.core.service.CacheService;
+import com.yueqiu.core.service.CheckTaskService;
 import com.yueqiu.core.service.OrderService;
 import com.yueqiu.core.service.PayLogService;
 import com.yueqiu.core.service.UserService;
@@ -36,5 +37,7 @@ public class AbstractController {
     protected UserService userService;
     @Resource
     protected PayLogService payLogService;
+    @Resource
+    protected CheckTaskService checkTaskService;
     
 }

@@ -17,6 +17,7 @@ import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Coupon;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.model.CheckType;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.UserContext;
 import com.yueqiu.web.annotation.Auth;
@@ -50,7 +51,7 @@ public class OrderController extends AbstractController {
         }
 
         if (quantity < 0 || quantity > (activity.getTotal() - activity.getAttend())) {
-            rep.setError(Status.PARAM_ERROR, "number");
+            rep.setError(Status.PARAM_ERROR, "参与人数");
             return rep;
         }
 
@@ -72,6 +73,7 @@ public class OrderController extends AbstractController {
                 rep.setError(Status.ERROR_400, "生成订单失败");
                 return rep;
             }
+            checkTaskService.submit(CheckType.ORDER_PAY, order.getId());
             logger.info("create order {}", order);
         } else {
             order = orders.get(0);

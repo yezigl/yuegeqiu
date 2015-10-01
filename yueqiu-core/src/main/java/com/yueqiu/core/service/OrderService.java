@@ -48,6 +48,8 @@ public class OrderService extends BaseService {
         query.field("user").equal(user);
         if (status != OrderStatus.ALL) {
             query.field("status").equal(status.code);
+        } else {
+            query.field("status").in(OrderStatus.visible());
         }
         query.order("-ctime");
         query.offset(offset).limit(limit);

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yueqiu.core.dao.ActivityDao;
+import com.yueqiu.core.dao.CheckTaskDao;
 import com.yueqiu.core.dao.CouponDao;
 import com.yueqiu.core.dao.MessageDao;
 import com.yueqiu.core.dao.OrderDao;
@@ -39,5 +40,7 @@ public abstract class BaseService {
     protected MessageDao messageDao;
     @Autowired
     protected PayLogDao payLogDao;
+    @Autowired
+    protected CheckTaskDao checkTaskDao;
     
 }

@@ -3,6 +3,8 @@
  */
 package com.yueqiu.core.model;
 
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * description here
@@ -12,12 +14,11 @@ package com.yueqiu.core.model;
  */
 public enum OrderStatus {
 
-    ALL("all", 0),
+    ALL("all", 0), // 这个状态没有作用
     CREATE("create", 1),
     PAYED("payed", 2),
     REFUND("refund", 4),
-    CLOSE("close", 8),
-    SIGNIN("signin", 16);
+    CLOSE("close", 8);
     
     public String identifier;
     public int code;
@@ -34,5 +35,9 @@ public enum OrderStatus {
             }
         }
         return ALL;
+    }
+    
+    public static List<Integer> visible() {
+        return Arrays.asList(CREATE.code, PAYED.code);
     }
 }

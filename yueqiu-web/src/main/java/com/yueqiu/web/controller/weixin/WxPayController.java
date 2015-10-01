@@ -20,6 +20,7 @@ import com.orion.core.utils.Utils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.PayLog;
 import com.yueqiu.core.model.OrderStatus;
@@ -59,7 +60,11 @@ public class WxPayController extends AbstractController {
             rep.setError(Status.ERROR_400, "订单不存在");
             return rep;
         }
-        orderService.update(order);
+        Activity activity = order.getActivity();
+        if (activity.getAttend() >= activity.getTotal()) {
+            rep.setError(Status.ERROR_400, "报名人数已满");
+            return rep;
+        }
 
         UnifiedOrder unifiedOrder = new UnifiedOrder(Weixin.APP_ID, Weixin.MCH_ID);
         unifiedOrder.setBody(order.getActivity().getTitle());
@@ -69,7 +74,7 @@ public class WxPayController extends AbstractController {
         unifiedOrder.setSpbillCreateIp(Utils.getClientIP(forwardIp, realIp));
         unifiedOrder.setTimeStart(DateFormatUtils.format(order.getCreateTime(), ORDER_TIME_FORMAT));
         unifiedOrder.setTimeExpire(DateFormatUtils.format(
-                DateUtils.addMilliseconds(order.getUpdateTime(), Constants.ORDER_EXPIRE_TIME), ORDER_TIME_FORMAT));
+                DateUtils.addMilliseconds(order.getCreateTime(), Constants.ORDER_EXPIRE_TIME), ORDER_TIME_FORMAT));
         unifiedOrder.setNotifyUrl(Weixin.NOTIFY_URL);
         unifiedOrder.setTradeType(Weixin.TRADE_TYPE);
 
@@ -137,6 +142,7 @@ public class WxPayController extends AbstractController {
                         order.setPayTime(new Date());
                         order.setStatus(OrderStatus.PAYED.code);
                         orderService.update(order);
+                        activityService.incrAttend(order.getActivity()); // 参与人数+1
                         payLog.setStatus(1);
                     } else {
                         payLog.setStatus(0);

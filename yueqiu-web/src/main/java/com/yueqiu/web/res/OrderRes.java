@@ -3,7 +3,6 @@
  */
 package com.yueqiu.web.res;
 
-import java.util.Date;
 import java.util.Locale;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -34,11 +33,9 @@ public class OrderRes extends Res {
     private int status;
     private String createTime;
     @JsonInclude(Include.NON_NULL)
-    private Date paytime;
+    private String payTime;
     @JsonInclude(Include.NON_NULL)
     private PayType payType;
-    @JsonInclude(Include.NON_NULL)
-    private String paysn;
     @JsonInclude(Include.NON_NULL)
     private ActivityRes activity;
     @JsonInclude(Include.NON_NULL)
@@ -55,8 +52,10 @@ public class OrderRes extends Res {
         this.setQuantity(order.getQuantity());
         this.setStatus(order.getStatus());
         this.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
-        this.setPaytime(order.getPayTime());
-        this.setPayType(order.getPayType());
+        if (order.isPayed()) {
+            this.setPayTime(DateFormatUtils.format(order.getPayTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
+            this.setPayType(order.getPayType());
+        }
         this.setActivity(new ActivityRes(order.getActivity(), Constants.USER_OFFICIAL, null));
         if (order.getCoupon() != null) {
             this.setCoupon(new CouponRes(order.getCoupon()));
@@ -119,12 +118,12 @@ public class OrderRes extends Res {
         this.status = status;
     }
 
-    public Date getPaytime() {
-        return paytime;
+    public String getPayTime() {
+        return payTime;
     }
 
-    public void setPaytime(Date paytime) {
-        this.paytime = paytime;
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
     }
 
     public PayType getPayType() {
@@ -133,14 +132,6 @@ public class OrderRes extends Res {
 
     public void setPayType(PayType payType) {
         this.payType = payType;
-    }
-
-    public String getPaysn() {
-        return paysn;
-    }
-
-    public void setPaysn(String paysn) {
-        this.paysn = paysn;
     }
 
     public String getCreateTime() {
