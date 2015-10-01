@@ -71,11 +71,11 @@ class PrePay {
     
     public String sign(long timestamp) {
         Map<String, String> map = new TreeMap<>();
-        map.put("appId", appid);
-        map.put("partnerId", mch_id);
-        map.put("prepayId", prepay_id);
-        map.put("nonceStr", nonce_str);
-        map.put("timeStamp", String.valueOf(timestamp));
+        map.put("appid", appid);
+        map.put("partnerid", mch_id);
+        map.put("prepayid", prepay_id);
+        map.put("noncestr", nonce_str);
+        map.put("timestamp", String.valueOf(timestamp));
         map.put("package", Weixin.PACKAGE);
         List<String> signList = new ArrayList<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
