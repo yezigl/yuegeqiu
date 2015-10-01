@@ -3,6 +3,8 @@
  */
 package com.yueqiu.core.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
@@ -80,6 +82,19 @@ public class User extends BaseEntity {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("mobile", mobile);
+        builder.append("nickname", nickname);
+        builder.append("password", password);
+        builder.append("salt", salt);
+        builder.append("ip", ip);
+        builder.append("status", status);
+        builder.append("avatar", avatar);
+        return builder.toString();
     }
 
 }

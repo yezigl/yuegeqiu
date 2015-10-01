@@ -5,6 +5,8 @@ package com.yueqiu.core.entity;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Index;
@@ -125,4 +127,22 @@ public class Order extends BaseEntity {
     public boolean isNew() {
         return this.status == OrderStatus.CREATE.code;
     }
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("activity", activity.stringifyId());
+        builder.append("user", user.stringifyId());
+        builder.append("amount", amount);
+        builder.append("discount", discount);
+        builder.append("quantity", quantity);
+        builder.append("coupon", coupon);
+        builder.append("status", status);
+        builder.append("payTime", payTime);
+        builder.append("payType", payType);
+        builder.append("ip", ip);
+        return builder.toString();
+    }
+    
+    
 }

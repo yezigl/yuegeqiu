@@ -3,6 +3,8 @@
  */
 package com.yueqiu.web.dao;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.yueqiu.core.dao.OrderDao;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.model.OrderStatus;
+import com.yueqiu.core.model.PayType;
 import com.yueqiu.web.TestConfig;
 
 /**
@@ -31,6 +34,8 @@ public class OrderDaoTest {
     public void test() {
         Order order = orderDao.get("5585679219a2ab266dd442ed");
         order.setStatus(OrderStatus.PAYED.code);
+        order.setPayTime(new Date());
+        order.setPayType(PayType.ALIPAY);
         orderDao.update(order);
     }
 

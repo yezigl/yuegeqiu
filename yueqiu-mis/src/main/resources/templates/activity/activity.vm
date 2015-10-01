@@ -29,7 +29,7 @@
                                 <select id="stadiumId" name="stadiumId" class="form-control">
                                     <option value="0">选择球场</option>
                                     #foreach($stadium in $stadiums)
-                                    <option value="$stadium.id" #if($stadium.id == $!activity.stadium.id) selected="selected"#end>$stadium.name</option>
+                                    <option value="$stadium.id" data-total="$stadium.total" #if($stadium.id == $!activity.stadium.id) selected="selected"#end>$stadium.name</option>
                                     #end
                                 </select>
                             </div>

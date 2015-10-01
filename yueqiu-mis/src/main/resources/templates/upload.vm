@@ -22,7 +22,7 @@ function upload(id, bucket, callback) {
         },
         dataType: 'json',
         done: function(e, data) {
-            jprogress.addClass('hide');
+            jprogress.css('width', 0).addClass('hide');
             callback(e, data);
         },
         fail: function(e, data) {

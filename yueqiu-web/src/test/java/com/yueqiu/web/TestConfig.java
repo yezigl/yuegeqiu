@@ -5,8 +5,7 @@ package com.yueqiu.web;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-
-import com.yueqiu.web.AppConfig;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * description here
@@ -15,7 +14,8 @@ import com.yueqiu.web.AppConfig;
  * @since 2015年6月14日
  */
 @Import(AppConfig.class)
-@ComponentScan(basePackages = "com.yueqiu.dao")
+@ImportResource("classpath:applicationContext-test.xml")
+@ComponentScan(basePackages = "com.yueqiu.core.dao")
 public class TestConfig {
 
 }
