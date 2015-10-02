@@ -136,9 +136,11 @@ public class WxPayController extends AbstractController {
             if (order == null) {
                 res.return_code = Weixin.RETURN_FAIL;
                 res.return_msg = "找不到订单";
+                logger.warn("can not find order {}", payNotify.out_trade_no);
             } else {
                 if (order.isPayed()) {
                     // 如果已经收到过callback
+                    logger.info("order has payed {}", payNotify.out_trade_no);
                 } else {
                     if (payNotify.isPaySuccess()) {
                         // 更新订单信息
@@ -148,8 +150,10 @@ public class WxPayController extends AbstractController {
                         orderService.update(order);
                         activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                         payLog.setStatus(1);
+                        logger.info("order pay success {}", payNotify.out_trade_no);
                     } else {
                         payLog.setStatus(0);
+                        logger.info("order pay fail {}", payNotify.out_trade_no);
                     }
                     // 记录更新流水
                     payLog.setDetail(xml);
@@ -163,6 +167,7 @@ public class WxPayController extends AbstractController {
         } else {
             res.return_code = Weixin.RETURN_FAIL;
             res.return_msg = payNotify.return_msg;
+            logger.warn("order return fail {}", payNotify.out_trade_no);
         }
 
         return xstream.toXML(res);
