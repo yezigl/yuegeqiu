@@ -149,6 +149,7 @@ public class WxPayController extends AbstractController {
                         order.setStatus(OrderStatus.PAYED.code);
                         orderService.update(order);
                         activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
+                        checkTaskService.cancel(order.getId());
                         payLog.setStatus(1);
                         logger.info("order pay success {}", payNotify.out_trade_no);
                     } else {

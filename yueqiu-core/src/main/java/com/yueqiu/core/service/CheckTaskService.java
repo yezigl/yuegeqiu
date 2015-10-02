@@ -94,6 +94,7 @@ public class CheckTaskService extends BaseService {
         TimerTask task = taskMap.get(id);
         if (task != null) {
             task.cancel();
+            deleteTask(id);
             logger.info("check task {} cancel", id);
         }
     }
