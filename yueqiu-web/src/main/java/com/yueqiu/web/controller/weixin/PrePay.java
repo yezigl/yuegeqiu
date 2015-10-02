@@ -12,6 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.LoggerFactory;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -84,6 +85,7 @@ class PrePay {
             }
         }
         String signStr = StringUtils.join(signList, "&") + "&key=" + Weixin.API_KEY;
+        LoggerFactory.getLogger(getClass()).info(signStr);
         return DigestUtils.md5Hex(signStr).toUpperCase();
     }
 
