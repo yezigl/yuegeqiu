@@ -59,7 +59,7 @@ class PayNotify {
     }
     
     public String sign() {
-        Map<String, String> map =  new TreeMap<>();
+        Map<String, Object> map =  new TreeMap<>();
         map.put("return_code", return_code);
         map.put("return_msg", return_msg);
         map.put("appid", appid);
@@ -74,19 +74,19 @@ class PayNotify {
         map.put("is_subscribe", is_subscribe);
         map.put("trade_type", trade_type);
         map.put("bank_type", bank_type);
-        map.put("total_fee", String.valueOf(total_fee));
+        map.put("total_fee", total_fee);
         map.put("fee_type", fee_type);
-        map.put("cash_fee", String.valueOf(cash_fee));
+        map.put("cash_fee", cash_fee);
         map.put("cash_fee_type", cash_fee_type);
-        map.put("coupon_fee", String.valueOf(coupon_fee));
-        map.put("coupon_count", String.valueOf(coupon_count));
+        map.put("coupon_fee", coupon_fee);
+        map.put("coupon_count", coupon_count);
         map.put("transaction_id", transaction_id);
         map.put("out_trade_no", out_trade_no);
         map.put("attach", attach);
         map.put("time_end", time_end);
         List<String> signList = new ArrayList<>();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            if (StringUtils.isNotBlank(entry.getValue())) {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (entry.getValue() != null && StringUtils.isNotBlank(entry.getValue().toString())) {
                 signList.add(entry.getKey() + "=" + entry.getValue());
             }
         }
