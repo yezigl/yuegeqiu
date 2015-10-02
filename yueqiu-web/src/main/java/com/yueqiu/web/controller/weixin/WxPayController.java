@@ -45,7 +45,8 @@ public class WxPayController extends AbstractController {
     static XStream xstream = new XStream(new XppDriver(new NoNameCoder()));
 
     static {
-        xstream.processAnnotations(new Class<?>[] { UnifiedOrder.class, PrePay.class, PayNotify.class });
+        xstream.processAnnotations(
+                new Class<?>[] { UnifiedOrder.class, PrePay.class, PayNotify.class, PayNotifyRes.class });
     }
 
     @RequestMapping(value = "/weixin/unifiedorder", method = RequestMethod.POST)
@@ -105,27 +106,30 @@ public class WxPayController extends AbstractController {
         } else {
             res.setStatus(Status.ERROR_400, prePay.err_code_des);
         }
-        
+
         rep.setData(res);
 
         return rep;
     }
-    
+
     @RequestMapping(value = "/weixin/callback")
+    @ResponseBody
     public String payCallback(@RequestBody String xml) {
-        
+
         logger.info("receive weixin callback response {}", xml);
-        
+
         PayNotifyRes res = new PayNotifyRes();
         res.return_code = Weixin.RETURN_SUCCESS;
-        
-        PayNotify payNotify = (PayNotify) xstream.fromXML(xml);
-        
-        if (!payNotify.checkSign()) {
-            res.return_code = Weixin.RETURN_FAIL;
-            res.return_msg = "签名错误";
-        }
-        
+
+        PayNotify payNotify = new PayNotify();
+        xstream.fromXML(xml, payNotify);
+
+        payNotify.checkSign();
+//        if (!payNotify.checkSign()) {
+//            res.return_code = Weixin.RETURN_FAIL;
+//            res.return_msg = "签名错误";
+//        }
+
         if (payNotify.isSuccess()) {
             PayLog payLog = new PayLog();
             Order order = orderService.get(payNotify.out_trade_no);
@@ -142,7 +146,7 @@ public class WxPayController extends AbstractController {
                         order.setPayTime(new Date());
                         order.setStatus(OrderStatus.PAYED.code);
                         orderService.update(order);
-                        activityService.incrAttend(order.getActivity()); // 参与人数+1
+                        activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                         payLog.setStatus(1);
                     } else {
                         payLog.setStatus(0);
@@ -160,7 +164,7 @@ public class WxPayController extends AbstractController {
             res.return_code = Weixin.RETURN_FAIL;
             res.return_msg = payNotify.return_msg;
         }
-        
+
         return xstream.toXML(res);
     }
 }

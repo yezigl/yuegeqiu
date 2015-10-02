@@ -84,7 +84,7 @@ public class AlipayController extends AbstractController {
                 order.setPayTime(new Date());
                 order.setStatus(OrderStatus.PAYED.code);
                 orderService.update(order);
-                activityService.incrAttend(order.getActivity()); // 参与人数+1
+                activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);
             } else if (tradeStatus.equals(Alipay.TRADE_SUCCESS)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
@@ -97,7 +97,7 @@ public class AlipayController extends AbstractController {
                 order.setPayTime(new Date());
                 order.setStatus(OrderStatus.PAYED.code);
                 orderService.update(order);
-                activityService.incrAttend(order.getActivity()); // 参与人数+1
+                activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);
             }
 

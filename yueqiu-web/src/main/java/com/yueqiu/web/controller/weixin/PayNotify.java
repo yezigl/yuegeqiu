@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -90,7 +91,9 @@ class PayNotify {
             }
         }
         String signStr = StringUtils.join(signList, "&") + "&key=" + Weixin.API_KEY;
+        LoggerFactory.getLogger(getClass()).info(signStr);
         String sign = DigestUtils.md5Hex(signStr).toUpperCase();
+        LoggerFactory.getLogger(getClass()).info(sign);
         return sign;
     }
     
