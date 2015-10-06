@@ -105,6 +105,8 @@ public class AlipayController extends AbstractController {
                 payLog.setStatus(1);
                 checkTaskService.cancel(order.getId());
                 logger.info("order pay success {}", payNotify.out_trade_no);
+            } else {
+                logger.warn("tradeStatus maybe not right [{}]", tradeStatus);
             }
 
             // 记录更新流水
