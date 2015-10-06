@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thoughtworks.xstream.XStream;
@@ -40,9 +39,7 @@ public class AlipayController extends AbstractController {
     }
 
     @RequestMapping(value = "/alipay/callback")
-    public String alipay(HttpServletRequest request, @ModelAttribute PayNotify payNotify,
-            @RequestParam("out_trade_no") String orderId, @RequestParam("trade_no") String tradeNo,
-            @RequestParam("trade_status") String tradeStatus) {
+    public String alipay(HttpServletRequest request, @ModelAttribute PayNotify payNotify) {
 
         logger.info("receive alipay callback response {}", payNotify.toString());
         // 获取支付宝POST过来反馈信息
@@ -73,7 +70,7 @@ public class AlipayController extends AbstractController {
                 logger.info("order has payed {}", payNotify.out_trade_no);
                 return "success";
             }
-            if (tradeStatus.equals(Alipay.TRADE_FINISHED)) {
+            if (Alipay.TRADE_FINISHED.equals(payNotify.trade_status)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
                 // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 // 如果有做过处理，不执行商户的业务程序
@@ -90,7 +87,7 @@ public class AlipayController extends AbstractController {
                 payLog.setStatus(1);
                 checkTaskService.cancel(order.getId());
                 logger.info("order pay success {}", payNotify.out_trade_no);
-            } else if (tradeStatus.equals(Alipay.TRADE_SUCCESS)) {
+            } else if (Alipay.TRADE_SUCCESS.equals(payNotify.trade_status)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
                 // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 // 如果有做过处理，不执行商户的业务程序
@@ -106,7 +103,7 @@ public class AlipayController extends AbstractController {
                 checkTaskService.cancel(order.getId());
                 logger.info("order pay success {}", payNotify.out_trade_no);
             } else {
-                logger.warn("tradeStatus maybe not right [{}]", tradeStatus);
+                logger.warn("tradeStatus maybe not right [{}]", payNotify.trade_status);
             }
 
             // 记录更新流水
