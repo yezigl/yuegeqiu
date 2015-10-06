@@ -16,13 +16,13 @@ public class CaptchaRes extends Res {
      */
     private static final long serialVersionUID = 1L;
 
-    private int captcha;
+    private String captcha;
 
-    public int getCaptcha() {
+    public String getCaptcha() {
         return captcha;
     }
 
-    public void setCaptcha(int captcha) {
+    public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
 

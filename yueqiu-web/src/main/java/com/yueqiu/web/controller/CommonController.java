@@ -197,7 +197,7 @@ public class CommonController extends AbstractController {
         cacheService.set(CacheKey.getMobileCaptchaKey(mobile), captcha, 600);
 
         CaptchaRes res = new CaptchaRes();
-        res.setCaptcha(captcha);
+        res.setCaptcha(String.valueOf(captcha));
         rep.setData(res);
 
         return rep;
