@@ -32,7 +32,7 @@ import com.yueqiu.web.controller.AbstractController;
 @RestController
 @RequestMapping(value = "/v1/payment")
 public class AlipayController extends AbstractController {
-    
+
     static XStream xstream = new XStream(new XppDriver(new NoNameCoder()));
 
     static {
@@ -43,7 +43,7 @@ public class AlipayController extends AbstractController {
     public String alipay(HttpServletRequest request, @ModelAttribute PayNotify payNotify,
             @RequestParam("out_trade_no") String orderId, @RequestParam("trade_no") String tradeNo,
             @RequestParam("trade_status") String tradeStatus) {
-        
+
         logger.info("receive alipay callback response {}", payNotify.toString());
         // 获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
@@ -67,8 +67,10 @@ public class AlipayController extends AbstractController {
             PayLog payLog = new PayLog();
             Order order = orderService.get(payNotify.out_trade_no);
             if (order == null) {
+                logger.warn("can not find order {}", payNotify.out_trade_no);
                 return "fail";
             } else if (order.isPayed()) {
+                logger.info("order has payed {}", payNotify.out_trade_no);
                 return "success";
             }
             if (tradeStatus.equals(Alipay.TRADE_FINISHED)) {
@@ -86,6 +88,7 @@ public class AlipayController extends AbstractController {
                 orderService.update(order);
                 activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);
+                logger.info("order pay success {}", payNotify.out_trade_no);
             } else if (tradeStatus.equals(Alipay.TRADE_SUCCESS)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
                 // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
@@ -99,6 +102,7 @@ public class AlipayController extends AbstractController {
                 orderService.update(order);
                 activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);
+                logger.info("order pay success {}", payNotify.out_trade_no);
             }
 
             // 记录更新流水
@@ -112,6 +116,7 @@ public class AlipayController extends AbstractController {
 
             return "success"; // 请不要修改或删除
         } else {// 验证失败
+            logger.warn("check verify fail, params = {}", params);
             return "fail";
         }
     }
