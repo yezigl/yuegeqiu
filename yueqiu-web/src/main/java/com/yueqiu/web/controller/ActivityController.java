@@ -86,6 +86,7 @@ public class ActivityController extends AbstractController {
                 orderInfo.put("isPayed", String.valueOf(order.isPayed()));
                 orderInfo.put("orderId", order.stringifyId());
             }
+            res.setOrderInfo(orderInfo);
         }
         rep.setData(res);
 
