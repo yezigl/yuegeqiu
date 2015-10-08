@@ -4,7 +4,9 @@
 package com.yueqiu.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.model.ActivityStatus;
 import com.yueqiu.core.model.ActivityType;
 import com.yueqiu.core.model.DateType;
 import com.yueqiu.core.model.OrderBy;
@@ -23,7 +26,6 @@ import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 import com.yueqiu.core.utils.UserContext;
 import com.yueqiu.web.res.ActivityRes;
-import com.yueqiu.web.res.OrderRes;
 import com.yueqiu.web.res.Representation;
 import com.yueqiu.web.res.Status;
 
@@ -74,9 +76,15 @@ public class ActivityController extends AbstractController {
         if (UserContext.isAuth()) {
             List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
                     OrderStatus.PAYED);
+            Map<String, String> orderInfo = new HashMap<>();
+            orderInfo.put("canBuy", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS.status));
+            orderInfo.put("hasBuy", String.valueOf(CollectionUtils.isNotEmpty(orders)));
+            orderInfo.put("isPayed", "false");
+            orderInfo.put("orderId", "");
             if (CollectionUtils.isNotEmpty(orders)) {
                 Order order = orders.get(0);
-                res.setOrder(new OrderRes(order));
+                orderInfo.put("isPayed", String.valueOf(order.isPayed()));
+                orderInfo.put("orderId", order.stringifyId());
             }
         }
         rep.setData(res);

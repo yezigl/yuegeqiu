@@ -6,6 +6,7 @@ package com.yueqiu.web.res;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -55,7 +56,7 @@ public class ActivityRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String statusStr;
     @JsonInclude(Include.NON_NULL)
-    private OrderRes order;
+    private Map<String, String> orderInfo;
 
     public ActivityRes() {
         players = new ArrayList<Player>();
@@ -206,12 +207,12 @@ public class ActivityRes extends Res {
         this.attend = attend;
     }
 
-    public OrderRes getOrder() {
-        return order;
+    public Map<String, String> getOrderInfo() {
+        return orderInfo;
     }
 
-    public void setOrder(OrderRes order) {
-        this.order = order;
+    public void setOrderInfo(Map<String, String> orderInfo) {
+        this.orderInfo = orderInfo;
     }
 
     public void addPlayer(User user) {

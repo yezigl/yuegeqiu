@@ -5,6 +5,7 @@ package com.yueqiu.web.controller;
 
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,10 +56,20 @@ public class OrderController extends AbstractController {
             return rep;
         }
 
-        List<Order> orders = orderService.getByUserAndActivity(user, activity, OrderStatus.CREATE);
-        Coupon coupon = userService.getCoupon(couponId, user);
+        List<Order> orders = orderService.getByUserAndActivity(user, activity, OrderStatus.CREATE, OrderStatus.PAYED);
         Order order = null;
-        if (orders == null || orders.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(orders)) {
+            for (Order o : orders) {
+                if (o.isPayed()) {
+                    rep.setError(Status.ERROR_400, "已购买过，不能重复购买");
+                    return rep;
+                } else if (o.isNew()) {
+                    order = o;
+                }
+            }
+        }
+        Coupon coupon = userService.getCoupon(couponId, user);
+        if (order == null) {
             order = new Order();
             order.setActivity(activity);
             order.setUser(user);
@@ -76,7 +87,6 @@ public class OrderController extends AbstractController {
             checkTaskService.submit(CheckType.ORDER_PAY, order.getId());
             logger.info("create order {}", order);
         } else {
-            order = orders.get(0);
             logger.info("exist order {}", order);
         }
 
