@@ -88,6 +88,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">额外信息</label>
+                            <div class="col-sm-4">
+                                <textarea cols="30" rows="2" class="form-control" id="description">$!activity.description</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="button" id="save" class="btn btn-primary">保存</button>&nbsp;&nbsp;
                                 <button type="button" id="delete" class="btn btn-danger">删除</button>
@@ -107,11 +113,11 @@
         'use strict';
         
         jQuery('#save').click(function() {
-            ajaxPost('/activities/$id', ['title', 'stadiumId', 'datetimepicker', 'duration', 'price', 'total', 'status'], 
+            ajaxPost('/activities/$id', ['title', 'stadiumId', 'datetimepicker', 'duration', 'price', 'total', 'status', 'description'], 
             function(data, status, jqXHR) {
-                alert('添加/修改成功');
+                alert('保存成功');
             }, function(jqXHR, status, e) {
-                alert('添加/修改失败');
+                alert('保存失败');
             });
         });
         

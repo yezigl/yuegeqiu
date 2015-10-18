@@ -56,6 +56,8 @@ public class ActivityRes extends Res {
     @JsonInclude(Include.NON_NULL)
     private String statusStr;
     @JsonInclude(Include.NON_NULL)
+    private String description;
+    @JsonInclude(Include.NON_NULL)
     private Map<String, String> orderInfo;
 
     public ActivityRes() {
@@ -75,6 +77,7 @@ public class ActivityRes extends Res {
         this.setOrganizer(new UserRes(organizer));
         this.setStatus(activity.getStatus());
         this.setStatusStr(ActivityStatus.valueOfStatus(activity.getStatus()).text);
+        this.setDescription(activity.getDescription());
         this.setStadium(new StadiumRes(activity.getStadium()));
         if (users != null) {
             for (User user : users) {
@@ -205,6 +208,14 @@ public class ActivityRes extends Res {
 
     public void setAttend(Integer attend) {
         this.attend = attend;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Map<String, String> getOrderInfo() {

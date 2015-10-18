@@ -31,6 +31,7 @@ public class Activity extends BaseEntity {
     private int total;
     private int attend;
     private int status;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -112,6 +113,14 @@ public class Activity extends BaseEntity {
         this.status = status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -122,12 +131,11 @@ public class Activity extends BaseEntity {
         builder.append("date", date);
         builder.append("duration", duration);
         builder.append("price", price);
-        //builder.append("organizer", organizer.getId().toString());
+        // builder.append("organizer", organizer.getId().toString());
         builder.append("total", total);
         builder.append("attend", attend);
         builder.append("status", status);
         return builder.toString();
     }
 
-    
 }

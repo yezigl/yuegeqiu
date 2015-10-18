@@ -100,9 +100,9 @@
         jQuery('#save').click(function() {
             ajaxPost('/stadiums/$id', ['name', 'address', 'latitude', 'longitude', 'size', 'gallery[]', 'phone'], 
             function(data, status, jqXHR) {
-                alert('添加/修改成功');
+                alert('保存成功');
             }, function(jqXHR, status, e) {
-                alert('添加/修改失败');
+                alert('保存失败');
             });
         });
         
