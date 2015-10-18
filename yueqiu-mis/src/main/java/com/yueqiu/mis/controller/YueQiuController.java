@@ -115,7 +115,8 @@ public class YueQiuController extends BaseController {
     @ResponseBody
     public Map<String, Object> activityPost(@PathVariable String id, @RequestParam String title,
             @RequestParam String stadiumId, @RequestParam String dateStr, @RequestParam float duration,
-            @RequestParam float price, @RequestParam int total, @RequestParam int status, Model model) {
+            @RequestParam float price, @RequestParam int total, @RequestParam int status,
+            @RequestParam(required = false) String description, Model model) {
         ModelAndView mv = new ModelAndView();
         Activity activity;
         if (id.equals("0")) {
@@ -140,6 +141,7 @@ public class YueQiuController extends BaseController {
         activity.setPrice(price);
         activity.setTotal(total);
         activity.setStatus(status);
+        activity.setDescription(description);
         activityService.upsert(activity);
         logger.info("update or create {}", activity);
         checkTaskService.submit(CheckType.ACTIVITY_STATUS, activity.getId());
@@ -171,7 +173,7 @@ public class YueQiuController extends BaseController {
     public String userPost(@PathVariable String id, Model model) {
         return vm("user/user");
     }
-    
+
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String orders(@RequestParam(required = false) String id, Model model) {
         if (StringUtils.isNotBlank(id)) {
@@ -180,7 +182,7 @@ public class YueQiuController extends BaseController {
         }
         return vm("order/ordersearch");
     }
-    
+
     @RequestMapping(value = "/orders/activity/{id}", method = RequestMethod.GET)
     public String orderActivity(@PathVariable String id, Model model) {
         Activity activity = activityService.get(id);
