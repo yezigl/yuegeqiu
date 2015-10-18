@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <div class="row">
             <img class="center-block" src="/img/share_qrcode.png" alt="分享二维码" />
         </div>

@@ -22,4 +22,5 @@
     <mvc:resources mapping="/img/**" location="classpath:static/img/" />
     <mvc:resources mapping="/attachment/**" location="classpath:static/attachment/" />
     <mvc:resources mapping="/robots.txt" location="classpath:static/robots.txt" />
+    <mvc:resources location="classpath:static/img/favicon.ico" mapping="/favicon.ico" />
 </beans>
