@@ -73,21 +73,23 @@ public class ActivityController extends AbstractController {
 
         List<User> attends = activityService.getAttend(activity);
         ActivityRes res = new ActivityRes(activity, Constants.USER_OFFICIAL, attends);
+        // 下单信息
+        Map<String, String> orderInfo = new HashMap<>();
+        orderInfo.put("canOrder", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS.status));
         if (UserContext.isAuth()) {
             List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
                     OrderStatus.PAYED);
-            Map<String, String> orderInfo = new HashMap<>();
-            orderInfo.put("canBuy", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS.status));
-            orderInfo.put("hasBuy", String.valueOf(CollectionUtils.isNotEmpty(orders)));
+            orderInfo.put("hasOrder", String.valueOf(CollectionUtils.isNotEmpty(orders)));
             orderInfo.put("isPayed", "false");
             orderInfo.put("orderId", "");
+            orderInfo.put("reason", "活动已结束");
             if (CollectionUtils.isNotEmpty(orders)) {
                 Order order = orders.get(0);
                 orderInfo.put("isPayed", String.valueOf(order.isPayed()));
                 orderInfo.put("orderId", order.stringifyId());
             }
-            res.setOrderInfo(orderInfo);
         }
+        res.setOrderInfo(orderInfo);
         rep.setData(res);
 
         return rep;
