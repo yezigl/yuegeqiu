@@ -70,6 +70,7 @@ public class ActivityService extends BaseService {
             query.filter("date >", cale.getTime());
             break;
         default:
+            query.filter("date >", cale.getTime());
             break;
         }
         switch (orderby) {
