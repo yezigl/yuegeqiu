@@ -4,6 +4,8 @@
 package com.yueqiu.core.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.mongodb.morphia.query.Query;
@@ -44,7 +46,44 @@ public class ActivityService extends BaseService {
     }
     
     public List<Activity> list(DateType date, ActivityType ball, OrderBy orderby, int offset, int limit) {
-        return activityDao.list(date, ball, orderby, offset, limit);
+        Query<Activity> query = activityDao.createQuery();
+        Calendar cale = Calendar.getInstance();
+        cale.set(Calendar.HOUR_OF_DAY, 0);
+        cale.set(Calendar.MINUTE, 0);
+        cale.set(Calendar.SECOND, 0);
+        switch (date) {
+        case TODAY:
+            query.filter("date >", cale.getTime());
+            cale.add(Calendar.DAY_OF_MONTH, 1);
+            query.filter("date <", cale.getTime());
+            break;
+        case TOMORROW:
+            cale.add(Calendar.DAY_OF_MONTH, 1);
+            Date begin = cale.getTime();
+            cale.add(Calendar.DAY_OF_MONTH, 1);
+            Date end = cale.getTime();
+            query.filter("date >", begin);
+            query.filter("date <", end);
+            break;
+        case TWODAYLATER:
+            cale.add(Calendar.DAY_OF_MONTH, 2);
+            query.filter("date >", cale.getTime());
+            break;
+        default:
+            break;
+        }
+        switch (orderby) {
+        case ASC:
+            query.order("date");
+            break;
+        case DESC:
+            query.order("-date");
+            break;
+        default:
+            break;
+        }
+        query.offset(offset).limit(limit);
+        return query.asList();
     }
 
     public List<User> getAttend(Activity activity) {

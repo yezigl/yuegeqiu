@@ -87,6 +87,7 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
+        builder.append("id", stringifyId());
         builder.append("mobile", mobile);
         builder.append("nickname", nickname);
         builder.append("password", password);

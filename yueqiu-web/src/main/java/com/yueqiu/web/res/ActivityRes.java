@@ -229,7 +229,7 @@ public class ActivityRes extends Res {
     public void addPlayer(User user) {
         Player player = new Player();
         player.setAvatar(StringUtils.defaultString(user.getAvatar(), Constants.DEFAULT_AVATAR));
-        player.setId(user.getId().toString());
+        player.setId(user.stringifyId());
         player.setNickname(user.getNickname());
         players.add(player);
     }

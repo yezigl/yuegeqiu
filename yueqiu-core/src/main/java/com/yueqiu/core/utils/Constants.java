@@ -25,6 +25,8 @@ public class Constants {
     
     public static final String MIS_ACT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
     
+    public static final float PRICE_UNIT = 100f;
+    
     // TODO 组织者
     public static final User USER_OFFICIAL = new User();
     

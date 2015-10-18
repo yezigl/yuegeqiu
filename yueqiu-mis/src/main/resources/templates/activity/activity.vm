@@ -80,15 +80,15 @@
                             <label for="status" class="col-sm-2 control-label">状态</label>
                             <div class="col-sm-2">
                                 <select id="status" name="status" class="form-control">
-                                    <option value="1">未开始</option>
-                                    <option value="2">报名中</option>
-                                    <option value="3">已报满</option>
-                                    <option value="4">已结束</option>
+                                    <option value="1"#if($!activity.status == 1) selected#end>未开始</option>
+                                    <option value="2"#if($!activity.status == 2) selected#end>报名中</option>
+                                    <option value="3"#if($!activity.status == 3) selected#end>已报满</option>
+                                    <option value="4"#if($!activity.status == 4) selected#end>已结束</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">额外信息</label>
+                            <label for="description" class="col-sm-2 control-label">描述信息</label>
                             <div class="col-sm-4">
                                 <textarea cols="30" rows="2" class="form-control" id="description">$!activity.description</textarea>
                             </div>
