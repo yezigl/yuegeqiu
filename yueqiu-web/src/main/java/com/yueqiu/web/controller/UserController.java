@@ -18,6 +18,7 @@ import com.yueqiu.core.entity.Message;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
 import com.yueqiu.core.entity.UserCoupon;
+import com.yueqiu.core.model.CouponStatus;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 import com.yueqiu.core.utils.UserContext;
@@ -130,7 +131,7 @@ public class UserController extends AbstractController {
     public Representation coupons() {
         Representation rep = new Representation();
 
-        List<UserCoupon> coupons = userService.listCoupons(UserContext.getUser());
+        List<UserCoupon> coupons = couponService.listByUser(UserContext.getUser(), CouponStatus.UC_UNUSE);
         List<CouponRes> list = new ArrayList<>();
         for (UserCoupon coupon : coupons) {
             list.add(new CouponRes(coupon));

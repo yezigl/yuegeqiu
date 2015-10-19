@@ -6,7 +6,9 @@ package com.yueqiu.core.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Service;
 
@@ -86,5 +88,28 @@ public class CouponService extends BaseService {
             userCoupon.setEndDate(coupon.getEndDate());
         }
         return userCouponDao.create(userCoupon);
+    }
+    
+    public UserCoupon getUserCoupon(User user, String id) {
+        if (StringUtils.isBlank(id)) {
+            return null;
+        }
+        Query<UserCoupon> query = userCouponDao.createQuery();
+        query.filter("user", user);
+        query.filter("id", new ObjectId(id));
+        query.field("endtime").greaterThan(new Date());
+        return query.get();
+    }
+
+    /**
+     * @param user
+     * @param status
+     * @return
+     */
+    public List<UserCoupon> listByUser(User user, CouponStatus status) {
+        Query<UserCoupon> query = userCouponDao.createQuery();
+        query.field("user").equal(user).field("status").equal(status);
+        query.order("utime");
+        return query.asList();
     }
 }

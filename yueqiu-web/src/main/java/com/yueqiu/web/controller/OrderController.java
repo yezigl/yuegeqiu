@@ -69,7 +69,7 @@ public class OrderController extends AbstractController {
                 }
             }
         }
-        UserCoupon userCoupon = userService.getCoupon(user, couponId);
+        UserCoupon userCoupon = couponService.getUserCoupon(user, couponId);
         if (order == null) {
             order = new Order();
             order.setActivity(activity);
