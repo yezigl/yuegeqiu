@@ -37,7 +37,7 @@ public enum OrderStatus {
         return ALL;
     }
     
-    public static List<Integer> visible() {
-        return Arrays.asList(CREATE.code, PAYED.code);
+    public static List<OrderStatus> visible() {
+        return Arrays.asList(CREATE, PAYED);
     }
 }

@@ -57,7 +57,7 @@ public class OrderController extends AbstractController {
             return rep;
         }
 
-        List<Order> orders = orderService.getByUserAndActivity(user, activity, OrderStatus.CREATE, OrderStatus.PAYED);
+        List<Order> orders = orderService.listByUserAndActivity(user, activity, OrderStatus.CREATE, OrderStatus.PAYED);
         Order order = null;
         if (CollectionUtils.isNotEmpty(orders)) {
             for (Order o : orders) {

@@ -49,7 +49,7 @@ public class OrderService extends BaseService {
         Query<Order> query = orderDao.createQuery();
         query.field("user").equal(user);
         if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
+            query.field("status").equal(status);
         } else {
             query.field("status").in(OrderStatus.visible());
         }
@@ -58,13 +58,13 @@ public class OrderService extends BaseService {
         return query.asList();
     }
 
-    public List<Order> getByUserAndActivity(User user, Activity activity, OrderStatus... statuses) {
+    public List<Order> listByUserAndActivity(User user, Activity activity, OrderStatus... statuses) {
         Query<Order> query = orderDao.createQuery();
         query.field("activity").equal(activity);
         query.field("user").equal(user);
-        List<Integer> sList = new ArrayList<>();
+        List<OrderStatus> sList = new ArrayList<>();
         for (OrderStatus status : statuses) {
-            sList.add(status.code);
+            sList.add(status);
         }
         query.field("status").in(sList);
         query.order("-ctime");
@@ -78,7 +78,7 @@ public class OrderService extends BaseService {
         Query<Order> query = orderDao.createQuery();
         query.field("activity").equal(activity);
         if (status != OrderStatus.ALL) {
-            query.field("status").equal(status.code);
+            query.field("status").equal(status);
         }
         query.order("-ctime");
         return query.asList();

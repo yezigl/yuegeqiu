@@ -77,7 +77,7 @@ public class ActivityController extends AbstractController {
         Map<String, String> orderInfo = new HashMap<>();
         orderInfo.put("canOrder", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS));
         if (UserContext.isAuth()) {
-            List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
+            List<Order> orders = orderService.listByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
                     OrderStatus.PAYED);
             orderInfo.put("hasOrder", String.valueOf(CollectionUtils.isNotEmpty(orders)));
             orderInfo.put("isPayed", "false");
