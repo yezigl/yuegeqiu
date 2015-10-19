@@ -10,6 +10,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
 
+import com.yueqiu.core.model.ActivityStatus;
+import com.yueqiu.core.model.ActivityType;
+
 /**
  * description here
  *
@@ -22,7 +25,7 @@ public class Activity extends BaseEntity {
     private String title;
     @Reference
     private Stadium stadium;
-    private int type;
+    private ActivityType type;
     private Date date;
     private float duration; // 小时为单位
     private float price;
@@ -30,7 +33,7 @@ public class Activity extends BaseEntity {
     private User organizer;
     private int total;
     private int attend;
-    private int status;
+    private ActivityStatus status;
     private String description;
 
     public String getTitle() {
@@ -49,11 +52,11 @@ public class Activity extends BaseEntity {
         this.stadium = stadium;
     }
 
-    public int getType() {
+    public ActivityType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(ActivityType type) {
         this.type = type;
     }
 
@@ -105,11 +108,11 @@ public class Activity extends BaseEntity {
         this.attend = attend;
     }
 
-    public int getStatus() {
+    public ActivityStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(ActivityStatus status) {
         this.status = status;
     }
 

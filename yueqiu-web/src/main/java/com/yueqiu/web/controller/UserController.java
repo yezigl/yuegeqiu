@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yueqiu.core.entity.Coupon;
 import com.yueqiu.core.entity.Message;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.entity.UserCoupon;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 import com.yueqiu.core.utils.UserContext;
@@ -130,9 +130,9 @@ public class UserController extends AbstractController {
     public Representation coupons() {
         Representation rep = new Representation();
 
-        List<Coupon> coupons = userService.listCoupons(UserContext.getUser());
+        List<UserCoupon> coupons = userService.listCoupons(UserContext.getUser());
         List<CouponRes> list = new ArrayList<>();
-        for (Coupon coupon : coupons) {
+        for (UserCoupon coupon : coupons) {
             list.add(new CouponRes(coupon));
         }
 

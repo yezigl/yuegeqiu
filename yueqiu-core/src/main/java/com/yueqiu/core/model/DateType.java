@@ -16,15 +16,15 @@ public enum DateType {
     TOMORROW(2),
     TWODAYLATER(3);
     
-    int type;
+    int code;
     
-    DateType(int type) {
-        this.type = type;
+    DateType(int code) {
+        this.code = code;
     }
     
-    public static DateType valueOfType(int type) {
+    public static DateType valueOfType(int code) {
         for (DateType dateType : values()) {
-            if (dateType.type == type) {
+            if (dateType.code == code) {
                 return dateType;
             }
         }

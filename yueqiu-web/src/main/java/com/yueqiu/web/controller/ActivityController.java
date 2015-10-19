@@ -75,7 +75,7 @@ public class ActivityController extends AbstractController {
         ActivityRes res = new ActivityRes(activity, Constants.USER_OFFICIAL, attends);
         // 下单信息
         Map<String, String> orderInfo = new HashMap<>();
-        orderInfo.put("canOrder", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS.status));
+        orderInfo.put("canOrder", String.valueOf(activity.getStatus() == ActivityStatus.INPROGRESS));
         if (UserContext.isAuth()) {
             List<Order> orders = orderService.getByUserAndActivity(UserContext.getUser(), activity, OrderStatus.CREATE,
                     OrderStatus.PAYED);

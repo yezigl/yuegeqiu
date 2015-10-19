@@ -4,6 +4,7 @@
 package com.yueqiu.mis.controller;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yueqiu.core.entity.Activity;
+import com.yueqiu.core.entity.Coupon;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.Stadium;
 import com.yueqiu.core.entity.User;
 import com.yueqiu.core.model.ActivityStatus;
 import com.yueqiu.core.model.CheckType;
+import com.yueqiu.core.model.CouponStatus;
+import com.yueqiu.core.model.CouponType;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.Constants;
 
@@ -108,6 +112,7 @@ public class YueQiuController extends BaseController {
         }
         model.addAttribute("stadiums", stadiumService.listAll());
         model.addAttribute("id", id);
+        model.addAttribute("statuses", ActivityStatus.values());
         return vm("activity/activity");
     }
 
@@ -115,7 +120,7 @@ public class YueQiuController extends BaseController {
     @ResponseBody
     public Map<String, Object> activityPost(@PathVariable String id, @RequestParam String title,
             @RequestParam String stadiumId, @RequestParam String dateStr, @RequestParam float duration,
-            @RequestParam float price, @RequestParam int total, @RequestParam int status,
+            @RequestParam float price, @RequestParam int total, @RequestParam ActivityStatus status,
             @RequestParam(required = false) String description, Model model) {
         ModelAndView mv = new ModelAndView();
         Activity activity;
@@ -190,5 +195,58 @@ public class YueQiuController extends BaseController {
         model.addAttribute("activity", activity);
         model.addAttribute("orders", orders);
         return "order/orderlist";
+    }
+
+    @RequestMapping(value = "/coupons", method = RequestMethod.GET)
+    public String coupons(Model model, @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit) {
+        List<Coupon> coupons = couponService.listAll(offset, limit);
+        model.addAttribute("coupons", coupons);
+        return vm("coupon/couponlist");
+    }
+
+    @RequestMapping(value = "/coupons/{id}", method = RequestMethod.GET)
+    public String couponGet(@PathVariable String id, Model model) {
+        if (!id.equals("0")) {
+            Coupon coupon = couponService.get(id);
+            model.addAttribute("coupon", coupon);
+        }
+        model.addAttribute("couponStatuses", CouponStatus.coupons());
+        return vm("coupon/coupon");
+    }
+
+    @RequestMapping(value = "/coupons/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> couponPost(@PathVariable String id, @RequestParam String title,
+            @RequestParam String description, @RequestParam String endDate, @RequestParam float price,
+            @RequestParam CouponType type, @RequestParam CouponStatus status, @RequestParam int period, Model model) {
+        ModelAndView mv = new ModelAndView();
+        Coupon coupon;
+        if (id.equals("0")) {
+            coupon = new Coupon();
+        } else {
+            coupon = couponService.get(id);
+        }
+        coupon.setTitle(title);
+        try {
+            if (period > 0) {
+                coupon.setPeriod(period);
+            } else {
+                Date date = DateUtils.parseDate(endDate, Constants.COUPON_DATE_FORMAT);
+                coupon.setEndDate(date);
+            }
+        } catch (ParseException e) {
+            logger.error("{}", e.getMessage(), e);
+        }
+        coupon.setDescription(description);
+        coupon.setPrice(price);
+        coupon.setType(type);
+        coupon.setStatus(status);
+        couponService.upsert(coupon);
+        logger.info("update or create {}", coupon);
+
+        mv.addObject("code", 200);
+        mv.addObject("msg", "ok");
+        return mv.getModel();
     }
 }

@@ -5,6 +5,7 @@ package com.yueqiu.core.dao;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
 import com.yueqiu.core.entity.BaseEntity;
 
@@ -36,4 +37,9 @@ public abstract class BaseDao<E extends BaseEntity> extends AppEntityDaoMorphia<
         return updateEntity(e) == 1;
     }
 
+    public E getByField(String field, String mobile) {
+        Query<E> query = createQuery();
+        query.field(field).equal(mobile);
+        return query.get();
+    }
 }

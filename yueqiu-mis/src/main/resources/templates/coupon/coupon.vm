@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("head.vm")
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+<title>优惠券详情</title>
+</head>
+<body>
+    #parse("navbar.vm")
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">#parse("menu.vm")</div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">优惠券详情</h2>
+                <div class="row">
+                    <div class="form-horizontal">
+                        <input type="hidden" id="id" name="id" value="$id">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="title" placeholder="标题" value="$!coupon.title" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">描述信息</label>
+                            <div class="col-sm-4">
+                                <textarea cols="30" rows="2" class="form-control" id="description" placeholder="描述信息">$!coupon.description</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">类型</label>
+                            <div class="col-sm-2">
+                                <select id="type" name="type" class="form-control">
+                                    #foreach($couponType in $couponTypes)
+                                    <option value="$couponType" #if($couponType == $!coupon.type) selected="selected"#end>$couponType.name</option>
+                                    #end
+                                </select>
+                                
+                            </div>
+                            <div style="padding-top: 6px;">
+                                <span class="help" title="首次下单：指定任意价格；<br>立减：下单减免一定金额；<br>代金券：订单以指定的价格支付">?</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stadiumId" class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <select id="status" name="status" class="form-control">
+                                    #foreach($status in $couponStatuses)
+                                    <option value="$status" #if($status == $!coupon.status) selected="selected"#end>$status.name</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="datetimepicker" class="col-sm-2 control-label">到期日</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="datetimepicker" name="endDate" placeholder="日期" value="$!dateTool.format('yyyy-MM-dd', $!coupon.endDate)">
+                            </div>
+                            <div style="padding-top: 6px;">
+                                <span class="help" title="到期日和有效期指定一个即可，如果都有，已有效期为准">?</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="period" class="col-sm-2 control-label">有效期</label>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="period" name="period" placeholder="有效期" value="$!coupon.period">
+                                    <div class="input-group-addon">天</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="price" placeholder="价格" value="$!coupon.price" required="required">
+                                    <div class="input-group-addon">元</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="save" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    #parse("footer.vm")
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript">
+    jQuery(function () {
+        'use strict';
+        
+        jQuery('#save').click(function() {
+            ajaxPost('/coupons/$id', ['title', 'description', 'datetimepicker', 'status', 'type', 'price', 'period'], 
+            function(data, status, jqXHR) {
+                alert('保存成功');
+            }, function(jqXHR, status, e) {
+                alert('保存失败');
+            });
+        });
+        
+        jQuery('#datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN'
+        });
+        
+        jQuery('#delete').click(function() {
+            if (confirm("确定删除吗？")) {
+                ajaxDelete('/activities/$id', [],
+                function(data, status, jqXHR) {
+                    document.location.href = '/activities';
+                }, function(jqXHR, status, e) {
+                    alert('删除失败');
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

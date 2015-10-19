@@ -18,6 +18,7 @@ import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.Coupon;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.entity.UserCoupon;
 import com.yueqiu.core.model.CheckType;
 import com.yueqiu.core.model.OrderStatus;
 import com.yueqiu.core.utils.UserContext;
@@ -68,18 +69,30 @@ public class OrderController extends AbstractController {
                 }
             }
         }
-        Coupon coupon = userService.getCoupon(couponId, user);
+        UserCoupon userCoupon = userService.getCoupon(user, couponId);
         if (order == null) {
             order = new Order();
             order.setActivity(activity);
             order.setUser(user);
             order.setAmount(activity.getPrice() * quantity);
             order.setQuantity(quantity);
-            if (coupon != null) {
-                order.setDiscount(coupon.getPrice());
+            if (userCoupon != null) {
+                Coupon coupon = userCoupon.getCoupon();
+                switch(coupon.getType()) {
+                    case FIRST: 
+                        order.setPayAmount(coupon.getPrice());
+                        break;
+                    case REDUCE:
+                        order.setPayAmount(order.getAmount() - coupon.getPrice());
+                        break;
+                    case VOUCHER:
+                        order.setPayAmount(coupon.getPrice());
+                        break;
+                }
+                order.setDiscount(order.getAmount() - order.getPayAmount());
             }
             order.setIp(Utils.getClientIP(forwardIp, realIp));
-            String id = orderService.create(order, coupon);
+            String id = orderService.create(order, userCoupon);
             if (id == null) {
                 rep.setError(Status.ERROR_400, "生成订单失败");
                 return rep;

@@ -123,11 +123,11 @@ public class CommonController extends AbstractController {
             return rep;
         }
 
-//        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(user.getMobile()));
-//        if (!StringUtils.equals(captchaOrigin, captcha)) {
-//            rep.setError(Status.CAPTCHA_ERROR);
-//            return rep;
-//        }
+        String captchaOrigin = cacheService.get(CacheKey.getMobileCaptchaKey(user.getMobile()));
+        if (!StringUtils.equals(captchaOrigin, captcha)) {
+            rep.setError(Status.CAPTCHA_ERROR);
+            return rep;
+        }
 
         if (StringUtils.isBlank(user.getPassword())) {
             rep.setError(Status.PARAM_ERROR, "password");
@@ -143,6 +143,8 @@ public class CommonController extends AbstractController {
         user.setIp(Utils.getClientIP(forwardIp, realIp));
         userService.create(user);
         logger.info("create user {}", user);
+        // TODO 注册后的异步任务
+        afterRegister(user);
         
         LoginRes res = new LoginRes();
         res.setId(user.getId().toString());

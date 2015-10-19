@@ -109,7 +109,7 @@ public class CheckTaskService extends BaseService {
 
         @Override
         public void run() {
-            order.setStatus(OrderStatus.CLOSE.code);
+            order.setStatus(OrderStatus.CLOSE);
             orderDao.update(order);
             deleteTask(order.getId());
             logger.info("check order task {} execute", order.getId());
@@ -127,7 +127,7 @@ public class CheckTaskService extends BaseService {
 
         @Override
         public void run() {
-            activity.setStatus(ActivityStatus.FINISH.status);
+            activity.setStatus(ActivityStatus.FINISHED);
             activityDao.update(activity);
             deleteTask(activity.getId());
             logger.info("check activity task {} execute", activity.getId());

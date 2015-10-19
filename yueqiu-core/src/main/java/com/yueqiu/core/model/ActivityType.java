@@ -14,18 +14,18 @@ public enum ActivityType {
     ALL(0),
     FOOTBALL(1);
     
-    int type;
+    public int code;
     
     /**
      * 
      */
-    private ActivityType(int type) {
-        this.type = type;
+    private ActivityType(int code) {
+        this.code = code;
     }
     
-    public static ActivityType valueOfType(int type) {
+    public static ActivityType valueOfType(int code) {
         for (ActivityType activityType : values()) {
-            if (activityType.type == type) {
+            if (activityType.code == code) {
                 return activityType;
             }
         }

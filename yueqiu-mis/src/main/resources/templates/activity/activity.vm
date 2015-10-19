@@ -4,7 +4,7 @@
 #parse("head.vm")
 <link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
-<title>球赛详情</title>
+<title>活动详情</title>
 </head>
 <body>
     #parse("navbar.vm")
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">#parse("menu.vm")</div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h2 class="page-header">球赛详情</h2>
+                <h2 class="page-header">活动详情</h2>
                 <div class="row">
                     <div class="form-horizontal">
                         <input type="hidden" id="id" name="id" value="$id">
@@ -80,10 +80,9 @@
                             <label for="status" class="col-sm-2 control-label">状态</label>
                             <div class="col-sm-2">
                                 <select id="status" name="status" class="form-control">
-                                    <option value="1"#if($!activity.status == 1) selected#end>未开始</option>
-                                    <option value="2"#if($!activity.status == 2) selected#end>报名中</option>
-                                    <option value="3"#if($!activity.status == 3) selected#end>已报满</option>
-                                    <option value="4"#if($!activity.status == 4) selected#end>已结束</option>
+                                    #foreach($status in $statuses)
+                                    <option value="$status"#if($!activity.status == $status) selected#end>$status.name</option>
+                                    #end
                                 </select>
                             </div>
                         </div>

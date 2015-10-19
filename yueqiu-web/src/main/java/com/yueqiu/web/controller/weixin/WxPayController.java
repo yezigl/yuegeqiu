@@ -146,7 +146,7 @@ public class WxPayController extends AbstractController {
                         // 更新订单信息
                         order.setPayType(PayType.WEIXIN);
                         order.setPayTime(new Date());
-                        order.setStatus(OrderStatus.PAYED.code);
+                        order.setStatus(OrderStatus.PAYED);
                         orderService.update(order);
                         activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                         checkTaskService.cancel(order.getId());

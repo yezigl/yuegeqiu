@@ -81,7 +81,7 @@ public class AlipayController extends AbstractController {
                 // 更新订单信息
                 order.setPayType(PayType.ALIPAY);
                 order.setPayTime(new Date());
-                order.setStatus(OrderStatus.PAYED.code);
+                order.setStatus(OrderStatus.PAYED);
                 orderService.update(order);
                 activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);
@@ -96,7 +96,7 @@ public class AlipayController extends AbstractController {
                 // 更新订单信息
                 order.setPayType(PayType.ALIPAY);
                 order.setPayTime(new Date());
-                order.setStatus(OrderStatus.PAYED.code);
+                order.setStatus(OrderStatus.PAYED);
                 orderService.update(order);
                 activityService.incrAttend(order.getActivity(), order.getQuantity()); // 参与人数+1
                 payLog.setStatus(1);

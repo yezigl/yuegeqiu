@@ -15,19 +15,23 @@ public enum ActivityStatus {
     UNSTART(1, "未开始"),
     INPROGRESS(2, "报名中"),
     FILLED(3, "已报满"),
-    FINISH(4, "已结束");
+    FINISHED(4, "已结束");
     
-    public int status;
-    public String text;
+    public int code;
+    public String name;
     
-    private ActivityStatus(int status, String text) {
-        this.status = status;
-        this.text = text;
+    private ActivityStatus(int code, String name) {
+        this.code = code;
+        this.name = name;
     }
     
-    public static ActivityStatus valueOfStatus(int status) {
+    public String getName() {
+        return name;
+    }
+    
+    public static ActivityStatus valueOfStatus(int code) {
         for (ActivityStatus as : values()) {
-            if (as.status == status) {
+            if (as.code == code) {
                 return as;
             }
         }

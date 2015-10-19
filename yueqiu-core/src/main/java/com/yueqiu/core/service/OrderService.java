@@ -11,9 +11,10 @@ import org.mongodb.morphia.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.yueqiu.core.entity.Activity;
-import com.yueqiu.core.entity.Coupon;
 import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.User;
+import com.yueqiu.core.entity.UserCoupon;
+import com.yueqiu.core.model.CouponStatus;
 import com.yueqiu.core.model.OrderStatus;
 
 /**
@@ -29,13 +30,13 @@ public class OrderService extends BaseService {
         return orderDao.get(id);
     }
 
-    public String create(Order order, Coupon coupon) {
-        order.setStatus(OrderStatus.CREATE.code);
+    public String create(Order order, UserCoupon coupon) {
+        order.setStatus(OrderStatus.CREATE);
         String id = orderDao.create(order);
         if (coupon != null) {
-            coupon.setStatus(1);
+            coupon.setStatus(CouponStatus.UC_USED);
             coupon.setUsetime(new Date());
-            couponDao.update(coupon);
+            userCouponDao.update(coupon);
         }
         return id;
     }

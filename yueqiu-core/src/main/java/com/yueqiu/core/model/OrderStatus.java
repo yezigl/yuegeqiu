@@ -20,11 +20,11 @@ public enum OrderStatus {
     REFUND("refund", 4),
     CLOSE("close", 8);
     
-    public String identifier;
+    public String name;
     public int code;
     
-    private OrderStatus(String identifier, int code) {
-        this.identifier = identifier;
+    private OrderStatus(String name, int code) {
+        this.name = name;
         this.code = code;
     }
     

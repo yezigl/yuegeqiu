@@ -14,6 +14,7 @@ import com.yueqiu.core.dao.MessageDao;
 import com.yueqiu.core.dao.OrderDao;
 import com.yueqiu.core.dao.PayLogDao;
 import com.yueqiu.core.dao.StadiumDao;
+import com.yueqiu.core.dao.UserCouponDao;
 import com.yueqiu.core.dao.UserDao;
 
 /**
@@ -42,5 +43,7 @@ public abstract class BaseService {
     protected PayLogDao payLogDao;
     @Autowired
     protected CheckTaskDao checkTaskDao;
+    @Autowired
+    protected UserCouponDao userCouponDao;
     
 }

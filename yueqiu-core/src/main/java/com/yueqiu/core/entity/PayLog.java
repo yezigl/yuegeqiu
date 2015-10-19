@@ -28,7 +28,7 @@ public class PayLog extends BaseEntity {
     @Reference
     private Activity activity;
     private PayType payType;
-    private int status;
+    private int status; // 0=失败 1=成功
     private String detail;
 
     public Order getOrder() {

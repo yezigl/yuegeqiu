@@ -8,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.yueqiu.core.model.CouponType;
 import com.yueqiu.core.service.ActivityService;
 import com.yueqiu.core.service.CheckTaskService;
+import com.yueqiu.core.service.CouponService;
 import com.yueqiu.core.service.OrderService;
 import com.yueqiu.core.service.PayLogService;
 import com.yueqiu.core.service.StadiumService;
@@ -40,10 +43,17 @@ public abstract class BaseController {
     protected UserService userService;
     @Autowired
     protected CheckTaskService checkTaskService;
+    @Autowired
+    protected CouponService couponService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("id");
+    }
+    
+    @ModelAttribute("couponTypes")
+    public CouponType[] couponTypes() {
+        return CouponType.values();
     }
 
     protected String redirect(String url) {

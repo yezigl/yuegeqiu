@@ -7,23 +7,23 @@ import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yueqiu.core.entity.User;
+import com.yueqiu.core.entity.UserCoupon;
 
 /**
  * description here
  *
  * @author yezi
- * @since 2015年6月14日
+ * @since 2015年10月18日
  */
 @Repository
-public class UserDao extends BaseDao<User> {
+public class UserCouponDao extends BaseDao<UserCoupon> {
 
     /**
      * @param datastore
      */
     @Autowired
-    public UserDao(Datastore datastore) {
+    public UserCouponDao(Datastore datastore) {
         super(datastore);
     }
-    
+
 }

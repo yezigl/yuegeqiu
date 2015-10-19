@@ -3,15 +3,11 @@
  */
 package com.yueqiu.core.dao;
 
-import java.util.List;
-
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.yueqiu.core.entity.Message;
-import com.yueqiu.core.entity.User;
 
 /**
  * description here
@@ -28,13 +24,5 @@ public class MessageDao extends BaseDao<Message> {
     @Autowired
     public MessageDao(Datastore datastore) {
         super(datastore);
-    }
-
-    public List<Message> listByUser(User user, int offset, int limit) {
-        Query<Message> query = createQuery();
-        query.field("user").equal(user);
-        query.limit(limit).offset(offset);
-        query.order("-ctime");
-        return query.asList();
     }
 }

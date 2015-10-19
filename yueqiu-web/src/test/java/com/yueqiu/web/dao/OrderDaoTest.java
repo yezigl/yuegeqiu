@@ -33,7 +33,7 @@ public class OrderDaoTest {
     @Test
     public void test() {
         Order order = orderDao.get("5585679219a2ab266dd442ed");
-        order.setStatus(OrderStatus.PAYED.code);
+        order.setStatus(OrderStatus.PAYED);
         order.setPayTime(new Date());
         order.setPayType(PayType.ALIPAY);
         orderDao.update(order);

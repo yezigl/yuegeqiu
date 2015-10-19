@@ -9,10 +9,10 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-sm-2 sidebar">
                 #parse("menu.vm")
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-10 col-sm-offset-2 main">
                 <h2 class="page-header">订单查询</h2>
                 <form class="form-inline" action="/orders">
                     <div class="form-group">
@@ -21,22 +21,22 @@
                     <button type="submit" class="btn btn-default">查询</button>
                 </form>
                 #if ($order)
-                <br>
-                <table class="table">
+                <p style="margin-top: 15px;">用户信息</p>
+                <table class="table table-bordered">
                     <tr>
                         <td colspan="2">
-                            <img width="60" height="60" alt="$!user.nickname" src="$!user.avatar">
+                            <img width="60" height="60" alt="$!order.user.nickname" src="$!order.user.avatar">
                         </td>
                     </tr>
                     <tr>
-                        <td>昵称：$!user.nickname</td>
-                        <td>手机号：$!user.mobile</td>
+                        <td>昵称：$!order.user.nickname</td>
+                        <td>手机号：$!order.user.mobile</td>
                     <tr>
                     <tr>
-                        <td colspan="2">注册IP：$!user.ip</td>
+                        <td colspan="2">注册IP：$!order.user.ip</td>
                     </tr>
                 </table>
-                <hr>
+                <p>订单信息</p>
                 #end
             </div>
         </div>

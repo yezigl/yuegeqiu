@@ -50,7 +50,7 @@ public class OrderRes extends Res {
         this.setAmount(order.getAmount());
         this.setDiscount(order.getDiscount());
         this.setQuantity(order.getQuantity());
-        this.setStatus(order.getStatus());
+        this.setStatus(order.getStatus().code);
         this.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
         if (order.isPayed()) {
             this.setPayTime(DateFormatUtils.format(order.getPayTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));

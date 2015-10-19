@@ -31,14 +31,23 @@ public class Order extends BaseEntity {
     @Reference
     private User user;
     private float amount;
+    private float payAmount;
     private float discount;
     private int quantity;
     @Reference
-    private Coupon coupon;
-    private int status;
+    private UserCoupon coupon;
+    private OrderStatus status;
     private Date payTime;
     private PayType payType;
     private String ip;
+
+    public boolean isPayed() {
+        return this.status == OrderStatus.PAYED;
+    }
+
+    public boolean isNew() {
+        return this.status == OrderStatus.CREATE;
+    }
 
     public Activity getActivity() {
         return activity;
@@ -64,6 +73,14 @@ public class Order extends BaseEntity {
         this.amount = amount;
     }
 
+    public float getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(float payAmount) {
+        this.payAmount = payAmount;
+    }
+
     public float getDiscount() {
         return discount;
     }
@@ -80,19 +97,19 @@ public class Order extends BaseEntity {
         this.quantity = quantity;
     }
 
-    public Coupon getCoupon() {
+    public UserCoupon getCoupon() {
         return coupon;
     }
 
-    public void setCoupon(Coupon coupon) {
+    public void setCoupon(UserCoupon coupon) {
         this.coupon = coupon;
     }
 
-    public int getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -120,14 +137,6 @@ public class Order extends BaseEntity {
         this.ip = ip;
     }
 
-    public boolean isPayed() {
-        return this.status == OrderStatus.PAYED.code;
-    }
-
-    public boolean isNew() {
-        return this.status == OrderStatus.CREATE.code;
-    }
-
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -143,6 +152,5 @@ public class Order extends BaseEntity {
         builder.append("ip", ip);
         return builder.toString();
     }
-    
-    
+
 }

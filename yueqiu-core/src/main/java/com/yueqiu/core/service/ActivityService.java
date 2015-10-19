@@ -104,7 +104,7 @@ public class ActivityService extends BaseService {
     public List<Activity> listAll(ActivityStatus status, int offset, int limit) {
         Query<Activity> query = activityDao.createQuery();
         if (status != ActivityStatus.ALL) {
-            query.field("status").equal(status.status);
+            query.field("status").equal(status);
         }
         query.order("-date");
         query.offset(offset).limit(limit);

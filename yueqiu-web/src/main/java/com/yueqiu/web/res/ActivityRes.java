@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.yueqiu.core.entity.Activity;
 import com.yueqiu.core.entity.User;
-import com.yueqiu.core.model.ActivityStatus;
 import com.yueqiu.core.utils.Constants;
 
 /**
@@ -68,15 +67,15 @@ public class ActivityRes extends Res {
         players = new ArrayList<Player>();
         this.setId(activity.getId().toString());
         this.setTitle(activity.getTitle());
-        this.setType(activity.getType());
+        this.setType(activity.getType().code);
         this.setDate(DateFormatUtils.format(activity.getDate(), Constants.ACTIVITY_DATE_FORMAT, Locale.CHINA));
         this.setPrice(activity.getPrice());
         this.setValue(activity.getPrice());
         this.setTotal(activity.getTotal());
         this.setAttend(activity.getAttend());
         this.setOrganizer(new UserRes(organizer));
-        this.setStatus(activity.getStatus());
-        this.setStatusStr(ActivityStatus.valueOfStatus(activity.getStatus()).text);
+        this.setStatus(activity.getStatus().code);
+        this.setStatusStr(activity.getStatus().name);
         this.setDescription(activity.getDescription());
         this.setStadium(new StadiumRes(activity.getStadium()));
         if (users != null) {
