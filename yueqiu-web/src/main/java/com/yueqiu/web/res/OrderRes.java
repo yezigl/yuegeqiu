@@ -28,6 +28,7 @@ public class OrderRes extends Res {
 
     private String id;
     private float amount;
+    private float payAmount;
     private float discount;
     private int quantity;
     private int status;
@@ -46,19 +47,20 @@ public class OrderRes extends Res {
     }
 
     public OrderRes(Order order) {
-        this.setId(order.getId().toString());
-        this.setAmount(order.getAmount());
-        this.setDiscount(order.getDiscount());
-        this.setQuantity(order.getQuantity());
-        this.setStatus(order.getStatus().code);
-        this.setCreateTime(DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
+        this.id = order.getId().toString();
+        this.amount = order.getAmount();
+        this.payAmount = order.getPayAmount();
+        this.discount = order.getDiscount();
+        this.quantity = order.getQuantity();
+        this.status = order.getStatus().code;
+        this.createTime = DateFormatUtils.format(order.getCreateTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA);
         if (order.isPayed()) {
-            this.setPayTime(DateFormatUtils.format(order.getPayTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA));
-            this.setPayType(order.getPayType());
+            this.payTime = DateFormatUtils.format(order.getPayTime(), Constants.ORDER_DATE_FORMAT, Locale.CHINA);
+            this.payType = order.getPayType();
         }
-        this.setActivity(new ActivityRes(order.getActivity(), Constants.USER_OFFICIAL, null));
+        this.activity  = new ActivityRes(order.getActivity(), Constants.USER_OFFICIAL, null);
         if (order.getCoupon() != null) {
-            this.setCoupon(new CouponRes(order.getCoupon()));
+            this.coupon = new CouponRes(order.getCoupon());
         }
     }
 
@@ -70,20 +72,20 @@ public class OrderRes extends Res {
         this.id = id;
     }
 
-    public ActivityRes getActivity() {
-        return activity;
-    }
-
-    public void setActivity(ActivityRes activity) {
-        this.activity = activity;
-    }
-
     public float getAmount() {
         return amount;
     }
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public float getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(float payAmount) {
+        this.payAmount = payAmount;
     }
 
     public float getDiscount() {
@@ -102,20 +104,20 @@ public class OrderRes extends Res {
         this.quantity = quantity;
     }
 
-    public CouponRes getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(CouponRes coupon) {
-        this.coupon = coupon;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getPayTime() {
@@ -134,12 +136,20 @@ public class OrderRes extends Res {
         this.payType = payType;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public ActivityRes getActivity() {
+        return activity;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setActivity(ActivityRes activity) {
+        this.activity = activity;
+    }
+
+    public CouponRes getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(CouponRes coupon) {
+        this.coupon = coupon;
     }
 
 }
