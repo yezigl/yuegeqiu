@@ -75,6 +75,7 @@ public class OrderController extends AbstractController {
             order.setActivity(activity);
             order.setUser(user);
             order.setAmount(activity.getPrice() * quantity);
+            order.setPayAmount(order.getAmount());
             order.setQuantity(quantity);
             if (userCoupon != null) {
                 Coupon coupon = userCoupon.getCoupon();
