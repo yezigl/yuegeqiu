@@ -88,6 +88,9 @@ public class OrderController extends AbstractController {
                     case VOUCHER:
                         order.setPayAmount(coupon.getPrice());
                         break;
+                    default:
+                        order.setPayAmount(order.getAmount());
+                        break;
                 }
                 order.setDiscount(order.getAmount() - order.getPayAmount());
             }

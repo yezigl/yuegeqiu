@@ -27,6 +27,7 @@ public class CouponRes extends Res {
     private float price;
     private String startDate;
     private String endDate;
+    private int status;
 
     public CouponRes() {
 
@@ -39,6 +40,7 @@ public class CouponRes extends Res {
         this.price = coupon.getCoupon().getPrice();
         this.startDate = DateFormatUtils.format(coupon.getStartDate(), Constants.COUPON_DATE_FORMAT);
         this.endDate = DateFormatUtils.format(coupon.getEndDate(), Constants.COUPON_DATE_FORMAT);
+        this.status = coupon.getStatus().ordinal();
     }
 
     public String getId() {
@@ -87,6 +89,14 @@ public class CouponRes extends Res {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }
