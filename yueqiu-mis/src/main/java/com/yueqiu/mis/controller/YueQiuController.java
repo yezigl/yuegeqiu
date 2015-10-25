@@ -26,6 +26,7 @@ import com.yueqiu.core.entity.Order;
 import com.yueqiu.core.entity.Stadium;
 import com.yueqiu.core.entity.User;
 import com.yueqiu.core.model.ActivityStatus;
+import com.yueqiu.core.model.ActivityType;
 import com.yueqiu.core.model.CheckType;
 import com.yueqiu.core.model.CouponStatus;
 import com.yueqiu.core.model.CouponType;
@@ -147,6 +148,7 @@ public class YueQiuController extends BaseController {
         activity.setTotal(total);
         activity.setStatus(status);
         activity.setDescription(description);
+        activity.setType(ActivityType.FOOTBALL);
         activityService.upsert(activity);
         logger.info("update or create {}", activity);
         checkTaskService.submit(CheckType.ACTIVITY_STATUS, activity.getId());
