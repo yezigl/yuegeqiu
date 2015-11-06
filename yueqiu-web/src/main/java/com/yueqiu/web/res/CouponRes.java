@@ -25,7 +25,9 @@ public class CouponRes extends Res {
     private String title;
     private String description;
     private float price;
+    private String startDate;
     private String endDate;
+    private int status;
 
     public CouponRes() {
 
@@ -36,7 +38,9 @@ public class CouponRes extends Res {
         this.title = coupon.getCoupon().getTitle();
         this.description = coupon.getCoupon().getDescription();
         this.price = coupon.getCoupon().getPrice();
+        this.startDate = DateFormatUtils.format(coupon.getStartDate(), Constants.COUPON_DATE_FORMAT);
         this.endDate = DateFormatUtils.format(coupon.getEndDate(), Constants.COUPON_DATE_FORMAT);
+        this.status = coupon.getStatus().ordinal();
     }
 
     public String getId() {
@@ -71,12 +75,28 @@ public class CouponRes extends Res {
         this.price = price;
     }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
     public String getEndDate() {
         return endDate;
     }
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

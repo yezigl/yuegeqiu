@@ -25,6 +25,7 @@ public class UserCoupon extends BaseEntity {
     private Coupon coupon;
     private CouponStatus status;
     private Date usetime;
+    private Date startDate;
     private Date endDate;
 
     public User getUser() {
@@ -57,6 +58,14 @@ public class UserCoupon extends BaseEntity {
 
     public void setUsetime(Date usetime) {
         this.usetime = usetime;
+    }
+    
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getEndDate() {

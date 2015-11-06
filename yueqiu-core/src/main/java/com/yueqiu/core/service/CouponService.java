@@ -82,6 +82,7 @@ public class CouponService extends BaseService {
         userCoupon.setUser(user);
         userCoupon.setCoupon(coupon);
         userCoupon.setStatus(CouponStatus.UC_UNUSE);
+        userCoupon.setStartDate(new Date());
         if (coupon.getPeriod() > 0) {
             userCoupon.setEndDate(DateUtils.addDays(new Date(), coupon.getPeriod()));
         } else {
@@ -97,7 +98,7 @@ public class CouponService extends BaseService {
         Query<UserCoupon> query = userCouponDao.createQuery();
         query.filter("user", user);
         query.filter("id", new ObjectId(id));
-        query.field("endtime").greaterThan(new Date());
+        query.field("endDate").greaterThan(new Date());
         return query.get();
     }
 
