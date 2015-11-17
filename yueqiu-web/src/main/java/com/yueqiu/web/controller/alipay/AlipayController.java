@@ -3,14 +3,20 @@
  */
 package com.yueqiu.web.controller.alipay;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thoughtworks.xstream.XStream;
@@ -122,4 +128,31 @@ public class AlipayController extends AbstractController {
         }
     }
 
+    @RequestMapping(value = "/alipay/sign", method = RequestMethod.POST)
+    public String sign(@RequestParam String orderId) {
+        Order order = orderService.get(orderId);
+        Map<String, Object> values = new TreeMap<>();
+        values.put("service", Alipay.PAY_SERVICE);
+        values.put("partner", Alipay.PARNTER);
+        values.put("_input_charset", Alipay.CHARSET);
+        //values.put("sign_type", Constants.ALIPAY_SIGN_TYPE);
+        values.put("app_id", Alipay.APP_ID);
+        values.put("notify_url", Alipay.NOTIFY_URL);
+        values.put("out_trade_no", order.getId());
+        values.put("subject", order.getActivity().getTitle());
+        values.put("payment_type", Alipay.PAYMENT_TYPE);
+        values.put("seller_id", Alipay.SELLER_ID);
+        values.put("total_fee", order.getAmount() - order.getDiscount());
+        values.put("body", order.getActivity().getTitle());
+        values.put("it_b_pay", Alipay.EXPIRE_TIME);
+        List<String> list = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : values.entrySet()) {
+            list.add(entry.getKey() + "=" + entry.getValue());
+        }
+        String orderInfo = StringUtils.join(list, "&");
+        // 对订单做RSA 签名
+        String sign = SignUtils.encodeURL(SignUtils.sign(orderInfo, Alipay.PRIVATE_KEY));
+        
+        return sign;
+    }
 }

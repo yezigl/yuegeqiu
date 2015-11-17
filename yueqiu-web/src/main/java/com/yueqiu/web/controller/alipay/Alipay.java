@@ -39,6 +39,18 @@ class Alipay {
     // 支付宝的公钥，无需修改该值
     public static final String ALI_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 
+    public static final String PAY_SERVICE = "mobile.securitypay.pay";
+
+    public static final String CHARSET = "utf-8";
+    
+    public static final String SELLER_ID = PARNTER;
+
+    public static final String PAYMENT_TYPE = "1";
+
+    public static final String NOTIFY_URL = "http://api.yueqiua.com/v1/payment/alipay/callback";
+
+    public static final String EXPIRE_TIME = "30m";
+
     // ↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
     // 调试用，创建TXT日志文件夹路径
