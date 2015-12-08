@@ -32,7 +32,6 @@ import com.yueqiu.core.utils.Token;
 import com.yueqiu.web.res.CaptchaRes;
 import com.yueqiu.web.res.ConfigRes;
 import com.yueqiu.web.res.LoginRes;
-import com.yueqiu.web.res.NtpRes;
 import com.yueqiu.web.res.Representation;
 import com.yueqiu.web.res.Status;
 import com.yueqiu.web.res.UploadRes;
@@ -238,18 +237,6 @@ public class CommonController extends AbstractController {
         return rep;
     }
 
-    @RequestMapping(value = "/ntp", method = RequestMethod.GET)
-    public Representation ntp() {
-        Representation rep = new Representation();
-        
-        NtpRes res = new NtpRes();
-        res.setMills(System.currentTimeMillis());
-        
-        rep.setData(res);
-        
-        return rep;
-    }
-    
     @RequestMapping(value = "/config", method = RequestMethod.GET)
     public Representation config() {
         Representation rep = new Representation();
