@@ -1,6 +1,6 @@
 <footer class="footer text-center">
     <div class="container">
-        <a href="https://www.upyun.com/" target="_blank"><img alt="又拍云" src="https://www.upyun.com/images/league/120X60.png"></a>
+        <a href="https://www.upyun.com/" target="_blank"><img alt="又拍云" src="https://www.upyun.com/assets/league/120X60.png"></a>
     </div>
 </footer>
 <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
