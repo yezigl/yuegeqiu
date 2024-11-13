@@ -3,7 +3,7 @@
  */
 package com.yueqiu.mis;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.CharacterEncodingFilter;

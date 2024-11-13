@@ -1,8 +1,8 @@
 package com.yueqiu.mis.utils;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class CookieUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(CookieUtils.class);
 
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge, String domain,
-            String path, boolean httpOnly) {
+                                 String path, boolean httpOnly) {
         Cookie cookie = new Cookie(name, value);
         cookie.setDomain(domain);
         cookie.setPath(path);

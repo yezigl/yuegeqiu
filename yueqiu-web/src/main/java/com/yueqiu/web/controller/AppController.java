@@ -3,9 +3,9 @@
  */
 package com.yueqiu.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +44,6 @@ public class AppController extends AbstractController implements ErrorController
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    @Override
     public String getErrorPath() {
         return "/error";
     }
